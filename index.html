@@ -9,19 +9,21 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
 
+  /* Palette drawn from the Seven Dooms logo (wood grain, crimson lettering,
+     cream text) and the burning-Sandpoint key art (ember reds, golden fire) */
   :root {
-    --bg:          #0e0d14;
-    --panel:       #171520;
-    --border:      #3d2e5a;
-    --border-dim:  #261e3a;
-    --accent:      #8a5fc8;
-    --accent2:     #5a2d8a;
-    --gold:        #d4a843;
-    --text:        #e8dcc8;
-    --muted:       #8a7a9a;
-    --card-bg:     #1c1828;
-    --title-color: #c8a0f0;
-    --blood:       #b05050;
+    --bg:          #160b09;
+    --panel:       #221210;
+    --border:      #6b3a24;
+    --border-dim:  #3c2014;
+    --accent:      #e07a4a;
+    --accent2:     #8a2f1e;
+    --gold:        #d9a94e;
+    --text:        #eee1c8;
+    --muted:       #a68a74;
+    --card-bg:     #2c1811;
+    --title-color: #f2d5ae;
+    --blood:       #c05043;
     --green:       #6aa86a;
   }
 
@@ -36,25 +38,24 @@
   }
 
   header {
-    background: linear-gradient(180deg, #080710 0%, #0e0b1a 60%, var(--bg) 100%);
+    background: linear-gradient(180deg, #0d0504 0%, #1d0c07 60%, var(--bg) 100%);
     border-bottom: 2px solid var(--accent2);
-    padding: 1.6rem 1.5rem 1.2rem;
+    padding: 1.4rem 1.5rem 1.1rem;
     text-align: center;
   }
-  .eyebrow {
-    font-family: 'Cinzel', serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.22em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 0.4rem;
+  .site-logo {
+    display: block;
+    margin: 0 auto 0.6rem;
+    max-width: min(360px, 80vw);
+    height: auto;
+    filter: drop-shadow(0 4px 14px rgba(224,122,74,0.25));
   }
   h1.site-title {
     font-family: 'Cinzel', serif;
-    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-size: clamp(1.2rem, 3.2vw, 1.7rem);
     font-weight: 700;
     color: var(--title-color);
-    text-shadow: 0 0 30px rgba(138,95,200,0.5), 2px 2px 6px #000;
+    text-shadow: 0 0 30px rgba(224,122,74,0.45), 2px 2px 6px #000;
     letter-spacing: 0.04em;
   }
   .subtitle { color: var(--muted); font-style: italic; font-size: 0.95rem; margin-top: 0.25rem; }
@@ -291,6 +292,21 @@
 
   .loading { color: var(--muted); font-style: italic; padding: 2rem 0; text-align: center; }
 
+  footer.site-footer {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0.9rem 1.5rem 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  footer.site-footer a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--border);
+  }
+  footer.site-footer a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
   @media (max-width: 760px) {
     .layout { flex-direction: column; padding: 1rem 0.8rem; }
     nav.sidebar { position: static; flex: none; width: 100%; }
@@ -302,7 +318,7 @@
 <body>
 
 <header>
-  <div class="eyebrow">Seven Dooms for Sandpoint</div>
+  <img class="site-logo" src="assets/logo.webp" alt="Seven Dooms for Sandpoint — Adventure Path">
   <h1 class="site-title">Sandpoint Chronicles</h1>
   <div class="subtitle">The party's shared notes — anyone at the table can add and edit pages</div>
 </header>
@@ -346,6 +362,10 @@
     </div>
   </main>
 </div>
+
+<footer class="site-footer">
+  📖 <a href="https://downloads.paizo.com/SevenDoomsforSandpoint_PlayersGuide.pdf" target="_blank" rel="noopener">Seven Dooms for Sandpoint — Player's Guide (PDF)</a>
+</footer>
 
 <script>
 /* ═══════════════ CONFIG — the GM edits these three lines ═══════════════ */
