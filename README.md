@@ -76,7 +76,7 @@ Send them the site URL and the table password. That's all they need — their br
 - **Rename/move a page:** on GitHub (or locally with `git mv`) — the site treats the file path as the page's location.
 - **Change the password:** update the `TABLE_PASSWORD` secret on the worker.
 - **Update character sheets:** re-export the actors from Foundry VTT into `party/export/`, run `node tools/build-party-pages.mjs`, then commit and push. Anything players wrote below the "PLAYER NOTES" marker on a sheet page is preserved.
-- **Rate limits:** reading uses GitHub's anonymous API (60 requests/hour per player IP). Fine for a gaming table; if someone ever hits it, it resets within the hour.
+- **Rate limits:** page content is served by GitHub Pages itself (unlimited). GitHub's anonymous API (60 requests/hour per IP — shared by everyone on the same wifi) is only used for the sidebar page list, the optional "last edited" line, and as a fallback for pages created moments ago. If it ever runs out, pages still load; the site just degrades a little until the hour resets.
 
 ## Security notes (honest version)
 

@@ -400,7 +400,7 @@ async function loadPageList(bustCache) {
       .filter(t => t.type === "blob" && /^pages\/.+\.md$/.test(t.path))
       .map(t => {
         const path = t.path.slice("pages/".length).replace(/\.md$/, "");
-        return { path, title: titleFromSlug(path) };
+        return { path, title: titleFromSlug(path), sha: t.sha };
       });
     renderPageList();
   } catch (e) {
@@ -544,21 +544,48 @@ async function loadPage(slug) {
     return;
   }
 
+  const entry = pages.find(p => p.path === slug);
   try {
-    const res = await fetch(`${API}/pages/${slug}.md`, { headers: { Accept: "application/vnd.github+json" } });
-    if (res.status === 404) {
-      $("article").innerHTML = `<h1>${titleFromSlug(slug)}</h1><p><em>This page doesn't exist yet.</em> Click <strong>Edit This Page</strong> to write it!</p>`;
-      currentRaw = `# ${titleFromSlug(slug)}\n\n`;
-      return;
+    let raw = null, sha = null;
+
+    // Primary source: the markdown file served by GitHub Pages itself —
+    // same origin, NOT rate limited (the API allows only 60 requests/hour/IP,
+    // which a table of players on one wifi burns through fast)
+    if (entry) {
+      try {
+        const res = await fetch(`pages/${slug}.md`, { cache: "no-cache" });
+        if (res.ok) { raw = await res.text(); sha = entry.sha; }
+      } catch (e) { /* not hosted on Pages (e.g. local testing) — use the API */ }
     }
-    if (!res.ok) throw new Error("GitHub API " + res.status);
-    const data = await res.json();
-    currentSha = data.sha;
-    currentRaw = b64decodeUtf8(data.content);
+
+    // Fallback: the GitHub API (rate limited, but knows about pages created
+    // moments ago that Pages hasn't deployed yet)
+    if (raw === null) {
+      const res = await fetch(`${API}/pages/${slug}.md`, { headers: { Accept: "application/vnd.github+json" } });
+      if (res.status === 404) {
+        $("article").innerHTML = `<h1>${titleFromSlug(slug)}</h1><p><em>This page doesn't exist yet.</em> Click <strong>Edit This Page</strong> to write it!</p>`;
+        currentRaw = `# ${titleFromSlug(slug)}\n\n`;
+        return;
+      }
+      if (!res.ok) throw new Error("GitHub API " + res.status);
+      const data = await res.json();
+      sha = data.sha;
+      raw = b64decodeUtf8(data.content);
+    }
+
+    currentSha = sha;
+    currentRaw = raw;
     $("deleteBtn").style.display = "";
     renderArticle();
     loadPageMeta(slug);
   } catch (e) {
+    if (!entry) {
+      // not in the page list and the API is unavailable (likely rate limited)
+      // — treat it as a page waiting to be written
+      $("article").innerHTML = `<h1>${titleFromSlug(slug)}</h1><p><em>This page doesn't exist yet.</em> Click <strong>Edit This Page</strong> to write it!</p>`;
+      currentRaw = `# ${titleFromSlug(slug)}\n\n`;
+      return;
+    }
     $("article").innerHTML = "<p class='loading'>Couldn't load this page. Check your connection and refresh.</p>";
   }
 }
@@ -566,6 +593,13 @@ function renderArticle() {
   $("article").innerHTML = DOMPurify.sanitize(marked.parse(preprocessWikiLinks(currentRaw)));
 }
 async function loadPageMeta(slug) {
+  // best-effort nicety — cached for 10 min per page so browsing doesn't
+  // eat into the 60/hour API budget, and silently absent when it runs out
+  const KEY = "wiki-meta:" + slug;
+  try {
+    const cached = JSON.parse(sessionStorage.getItem(KEY) || "null");
+    if (cached && Date.now() - cached.at < 600000) { $("pageMeta").textContent = cached.text; return; }
+  } catch (e) {}
   try {
     const res = await fetch(`${COMMITS}?path=pages/${slug}.md&per_page=1`);
     if (!res.ok) return;
@@ -573,7 +607,9 @@ async function loadPageMeta(slug) {
     if (!commits.length) return;
     const c = commits[0].commit;
     const date = new Date(c.author.date).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
-    $("pageMeta").textContent = `Last edited ${date} · ${c.message}`;
+    const text = `Last edited ${date} · ${c.message}`;
+    $("pageMeta").textContent = text;
+    try { sessionStorage.setItem(KEY, JSON.stringify({ text, at: Date.now() })); } catch (e) {}
   } catch (e) { /* meta is optional */ }
 }
 
