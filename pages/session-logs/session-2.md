@@ -1,5 +1,7 @@
 # Session 2
 
+<img class="portrait" src="assets/session2.webp" alt="Session 2">
+
 You tried to take Glorkus captive, he tried to escape. N'Jal hulked out. 
 
 A goblin voice behind a barricade warned you about a **fire monster**. 
