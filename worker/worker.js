@@ -91,6 +91,9 @@ export default {
       return json({ error: `GitHub ${res.status}`, detail: detail.slice(0, 300) }, 502);
     }
 
-    return json({ ok: true }, 200);
+    // hand back the new file sha so the site can keep editing without
+    // waiting out GitHub's API cache
+    const data = await res.json().catch(() => ({}));
+    return json({ ok: true, sha: data.content?.sha || null }, 200);
   },
 };

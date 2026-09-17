@@ -389,9 +389,11 @@ function showStatus(msg, ok) {
 function clearStatus() { $("status").className = "status"; }
 
 /* ── Page list (whole tree in one API call) ── */
-async function loadPageList() {
+async function loadPageList(bustCache) {
   try {
-    const res = await fetch(TREE, { headers: { Accept: "application/vnd.github+json" } });
+    // a unique query param skips GitHub's ~60s API cache right after a change
+    const url = bustCache ? `${TREE}&_=${Date.now()}` : TREE;
+    const res = await fetch(url, { headers: { Accept: "application/vnd.github+json" } });
     if (!res.ok) throw new Error("GitHub API " + res.status);
     const data = await res.json();
     pages = data.tree
@@ -513,6 +515,11 @@ function preprocessWikiLinks(md) {
 }
 
 /* ── Load & render one page ── */
+// pages saved/deleted in this session, kept ~90s so navigating back shows the
+// fresh version instead of GitHub's ~60s-stale API cache
+const justChanged = new Map(); // slug -> {raw, sha, deleted, at}
+function rememberChange(slug, entry) { justChanged.set(slug, { ...entry, at: Date.now() }); }
+
 async function loadPage(slug) {
   currentSlug = slug;
   currentSha = null;
@@ -522,6 +529,21 @@ async function loadPage(slug) {
   $("deleteBtn").style.display = "none";
   $("article").innerHTML = "<div class='loading'>Loading…</div>";
   $("pageMeta").textContent = "";
+
+  const fresh = justChanged.get(slug);
+  if (fresh && Date.now() - fresh.at < 90000) {
+    if (fresh.deleted) {
+      $("article").innerHTML = `<h1>${titleFromSlug(slug)}</h1><p><em>This page doesn't exist yet.</em> Click <strong>Edit This Page</strong> to write it!</p>`;
+      currentRaw = `# ${titleFromSlug(slug)}\n\n`;
+    } else {
+      currentSha = fresh.sha;
+      currentRaw = fresh.raw;
+      $("deleteBtn").style.display = "";
+      renderArticle();
+    }
+    return;
+  }
+
   try {
     const res = await fetch(`${API}/pages/${slug}.md`, { headers: { Accept: "application/vnd.github+json" } });
     if (res.status === 404) {
@@ -534,12 +556,14 @@ async function loadPage(slug) {
     currentSha = data.sha;
     currentRaw = b64decodeUtf8(data.content);
     $("deleteBtn").style.display = "";
-    const html = DOMPurify.sanitize(marked.parse(preprocessWikiLinks(currentRaw)));
-    $("article").innerHTML = html;
+    renderArticle();
     loadPageMeta(slug);
   } catch (e) {
     $("article").innerHTML = "<p class='loading'>Couldn't load this page. Check your connection and refresh.</p>";
   }
+}
+function renderArticle() {
+  $("article").innerHTML = DOMPurify.sanitize(marked.parse(preprocessWikiLinks(currentRaw)));
 }
 async function loadPageMeta(slug) {
   try {
@@ -595,10 +619,24 @@ async function savePage() {
     if (res.status === 403) { showStatus("Wrong table password.", false); }
     else if (res.status === 409) { showStatus("Someone else edited this page while you were typing! Copy your text somewhere safe, refresh, and paste your changes back in.", false); }
     else if (!res.ok) { showStatus("Save failed: " + (out.error || res.status), false); }
+    else if (out.sha) {
+      // show the saved content immediately — refetching would hit GitHub's
+      // ~60s API cache and appear to "lose" the edit for a minute
+      currentRaw = content;
+      currentSha = out.sha;
+      rememberChange(currentSlug, { raw: content, sha: out.sha });
+      $("deleteBtn").style.display = "";
+      showView();
+      renderArticle();
+      $("pageMeta").textContent = `Last edited just now · by ${author}`;
+      showStatus("Saved! ✦", true);
+      loadPageList(true);
+    }
     else {
+      // worker didn't return the new sha (old worker version) — fall back to refetching
       showStatus("Saved! ✦", true);
       await loadPage(currentSlug);
-      loadPageList();
+      loadPageList(true);
     }
   } catch (e) {
     showStatus("Couldn't reach the save server. Check your connection.", false);
@@ -640,7 +678,8 @@ async function deletePage() {
     else if (res.status === 409) { showStatus("Someone edited this page just now — refresh and try again.", false); }
     else if (!res.ok) { showStatus("Delete failed: " + (out.error || res.status), false); }
     else {
-      await loadPageList();
+      rememberChange(currentSlug, { deleted: true });
+      await loadPageList(true);
       if (location.hash === "#home") route(); else location.hash = "#home";
       showStatus(`Deleted "${title}".`, true);
     }
