@@ -23,6 +23,13 @@ const EXPORT_DIR = path.join(ROOT, "party", "export");
 const OUT_DIR = path.join(ROOT, "pages", "the-party");
 const NOTES_MARKER = "<!-- PLAYER NOTES — everything below this line survives sheet regeneration -->";
 
+// One-time correction: 75 gp per PC that the GM handed out but forgot to add
+// in Foundry before the 2026-09-17 exports. Set this back to 0 once a future
+// export includes it, or the gold will be counted twice.
+const GOLD_ADJUSTMENT = 75;
+
+const COIN_VALUES = { "Platinum Pieces": 10, "Gold Pieces": 1, "Silver Pieces": 0.1, "Copper Pieces": 0.01 };
+
 const RANKS = ["Untrained", "Trained", "Expert", "Master", "Legendary"];
 const ABILITIES = ["str", "dex", "con", "int", "wis", "cha"];
 const SKILL_ABILITY = {
@@ -187,12 +194,21 @@ function buildPage(actor) {
     if (list.length) featsSection += `- **${label}:** ${list.map(f => f.name).join(", ")}\n`;
   }
 
-  /* inventory */
+  /* gold — coins summed in gp, plus the one-time adjustment */
+  const goldRaw = byType("treasure")
+    .filter(i => i.name in COIN_VALUES)
+    .reduce((sum, i) => sum + (i.system.quantity ?? 0) * COIN_VALUES[i.name], 0)
+    + GOLD_ADJUSTMENT;
+  const gold = (Math.round(goldRaw * 100) / 100).toString();
+
+  /* inventory (coins live in Current Gold, not here) */
   const GEAR_TYPES = ["armor", "equipment", "backpack", "consumable", "ammo", "treasure"];
-  const gear = GEAR_TYPES.flatMap(byType).map(i => {
-    const q = i.system.quantity ?? 1;
-    return `${i.name}${q > 1 ? ` ×${q}` : ""}`;
-  });
+  const gear = GEAR_TYPES.flatMap(byType)
+    .filter(i => !(i.name in COIN_VALUES) && (i.system.quantity ?? 1) > 0)
+    .map(i => {
+      const q = i.system.quantity ?? 1;
+      return `${i.name}${q > 1 ? ` ×${q}` : ""}`;
+    });
 
   /* appearance (only the bio field players marked visible) */
   const appearance = sys.details.biography?.visibility?.appearance
@@ -202,6 +218,8 @@ function buildPage(actor) {
 
 *${headBits}*${subBits ? `\n\n${subBits}` : ""}
 ${appearance ? `\n> ${appearance}\n` : ""}
+**Current Gold:** ${gold} gp
+
 ## Stats
 
 | STR | DEX | CON | INT | WIS | CHA |

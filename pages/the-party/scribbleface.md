@@ -4,6 +4,8 @@
 
 Background: Academy Dropout · Follows Grandmother Spider · Age 7 · Languages: Draconic, Thassilonian, Varisian, Sakvroth
 
+**Current Gold:** 116 gp
+
 ## Stats
 
 | STR | DEX | CON | INT | WIS | CHA |
@@ -50,7 +52,7 @@ Background: Academy Dropout · Follows Grandmother Spider · Age 7 · Languages:
 
 ## Inventory
 
-Persona Mask · Disguise Kit (Elite) · One-Hour Flower · Flayleaf · Scroll of Heal (Rank 1) · Gold Pieces ×41
+Persona Mask · Disguise Kit (Elite) · One-Hour Flower · Flayleaf · Scroll of Heal (Rank 1)
 
 ---
 

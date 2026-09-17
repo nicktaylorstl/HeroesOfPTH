@@ -4,6 +4,8 @@
 
 Background: Raised by Belief · Follows Iomedae · Age 23 · Languages: Orcish
 
+**Current Gold:** 91.51 gp
+
 ## Stats
 
 | STR | DEX | CON | INT | WIS | CHA |
@@ -60,7 +62,7 @@ Background: Raised by Belief · Follows Iomedae · Age 23 · Languages: Orcish
 
 ## Inventory
 
-Hide Armor · Rope · Father's Warmask · Healer's Toolkit · Cultist Cowl · Healing Potion (Minor) ×2 · Scroll of Bless (Rank 1) · Elixir of Life (Minor) ×2 · Nectar of Purification · Darkvision Elixir (Lesser) ×2 · Oil of Potency ×2 · Scroll of Protection (Rank 1) · Scroll of Blazing Blade (Rank 2) · Scroll of Clawsong (Rank 2) · Shark Tooth Charm · Scroll of Heal (Rank 1) · Bolts ×28 · Gold Pieces ×16 · Silver Pieces ×5 · Copper Pieces
+Hide Armor · Rope · Father's Warmask · Healer's Toolkit · Cultist Cowl · Healing Potion (Minor) ×2 · Scroll of Bless (Rank 1) · Elixir of Life (Minor) ×2 · Nectar of Purification · Darkvision Elixir (Lesser) ×2 · Oil of Potency ×2 · Scroll of Protection (Rank 1) · Scroll of Blazing Blade (Rank 2) · Scroll of Clawsong (Rank 2) · Shark Tooth Charm · Scroll of Heal (Rank 1) · Bolts ×28
 
 ---
 

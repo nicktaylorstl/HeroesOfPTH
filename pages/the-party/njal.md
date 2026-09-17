@@ -4,6 +4,8 @@
 
 Background: Prisoner · Follows Sarenrae · Languages: Varisian
 
+**Current Gold:** 86.87 gp
+
 ## Stats
 
 | STR | DEX | CON | INT | WIS | CHA |
@@ -42,7 +44,7 @@ Background: Prisoner · Follows Sarenrae · Languages: Varisian
 
 ## Inventory
 
-Half Plate · Waterskin · Flint and Steel · Bedroll · Torch ×5 · Soap · Grappling Hook · Crowbar · Rope · Ball · Striking · Backpack · Chalk ×10 · Rations ×2 · Scroll of Runic Weapon (Rank 1) ×2 · Healing Potion (Lesser) · Healing Potion (Moderate) · Platinum Pieces · Gold Pieces ×11 · Silver Pieces ×8 · Copper Pieces ×7
+Half Plate · Waterskin · Flint and Steel · Bedroll · Torch ×5 · Soap · Grappling Hook · Crowbar · Rope · Ball · Striking · Backpack · Chalk ×10 · Rations ×2 · Scroll of Runic Weapon (Rank 1) ×2 · Healing Potion (Lesser) · Healing Potion (Moderate)
 
 ---
 

@@ -4,6 +4,8 @@
 
 Background: Fireworks Performer · Languages: Draconic, Elder-thing
 
+**Current Gold:** 96.9 gp
+
 ## Stats
 
 | STR | DEX | CON | INT | WIS | CHA |
@@ -51,7 +53,7 @@ Background: Fireworks Performer · Languages: Draconic, Elder-thing
 
 ## Inventory
 
-Studded Leather · Waterskin · Hand of the Mage · Masquerade Scarf · Thieves' Toolkit · Iron Key to area B5 · Sack ×3 · Healing Potion (Lesser) · Candle · Scroll of Grease (Rank 1) · Scroll of Dispel Magic (Rank 2) · Scroll of Tailwind (Rank 2) · Scroll of Sleep (Rank 1) · One-Hour Flower · Wand of Fear (Rank 1) · Sneaky Key · Platinum Pieces · Gold Pieces ×21 · Silver Pieces ×7 · Copper Pieces ×20
+Studded Leather · Waterskin · Hand of the Mage · Masquerade Scarf · Thieves' Toolkit · Iron Key to area B5 · Sack ×3 · Healing Potion (Lesser) · Candle · Scroll of Grease (Rank 1) · Scroll of Dispel Magic (Rank 2) · Scroll of Tailwind (Rank 2) · Scroll of Sleep (Rank 1) · One-Hour Flower · Wand of Fear (Rank 1) · Sneaky Key
 
 ---
 

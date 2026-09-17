@@ -4,6 +4,8 @@
 
 Background: Gunsmith · Follows Torag · Age 130 · Languages: Common, Dwarven
 
+**Current Gold:** 144.73 gp
+
 ## Stats
 
 | STR | DEX | CON | INT | WIS | CHA |
@@ -40,7 +42,7 @@ Background: Gunsmith · Follows Torag · Age 130 · Languages: Common, Dwarven
 
 ## Inventory
 
-Studded Leather · Healer's Toolkit · Rope · Bedroll · Flint and Steel · Grappling Hook · Striking · Backpack · Rations · Healing Potion (Minor) · Smoke Ball (Lesser) ×3 · Beacon Shot ×6 · Storm Arrow · Rounds (Dueling Pistol) ×21 · Elemental Ammunition (Lesser, Fire) · Elemental Ammunition (Lesser, Acid) · New Ammunition · Rounds (Clan Pistol) ×78 · Platinum Pieces · Gold Pieces ×69 · Silver Pieces ×7 · Copper Pieces ×3
+Studded Leather · Healer's Toolkit · Rope · Bedroll · Flint and Steel · Grappling Hook · Striking · Backpack · Rations · Smoke Ball (Lesser) ×3 · Beacon Shot ×6 · Storm Arrow · Rounds (Dueling Pistol) ×21 · Elemental Ammunition (Lesser, Fire) · New Ammunition · Rounds (Clan Pistol) ×78
 
 ---
 
