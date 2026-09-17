@@ -4,4 +4,4 @@
 - *(who did we meet? add them to [[People of Sandpoint]])*
 - *(any clues? add them to [[Mysteries and Theories]])*
 
-Testing add from iphone
+
