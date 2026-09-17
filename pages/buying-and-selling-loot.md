@@ -18,7 +18,7 @@ Sandpoint is a **level 4** city
 
 This means any COMMON item level 4 or below can be found 100%
 
-If you want a common item of a higher level, or an uncommon item of up to level 4, you can roll dice to see if it happens to be available or not. 
+If you want a COMMON item of a higher level, or an UNCOMMON item of up to level 4, you can roll dice to see if it happens to be available or not. 
 
 If you look at the Sandpoint NPCs in the players guide, and can tell me why a certain NPC or shop might have the item you want, you'll have a higher chance of it being available. 
 
@@ -34,8 +34,8 @@ It will usually take 2 to 4 in-game days to get the item.
  
 it's a **level 12** city. 
 
-Any common item level 12 and below can be found 100%
+Any COMMON item level 12 and below can be found 100%
 
-If you want a common item of a higher level, or an uncommon item of up to level 12, you can roll dice to see if it happens to be available or not. 
+If you want a COMMON item of a higher level, or an UNCOMMON item of up to level 12, you can roll dice to see if it happens to be available or not. 
 
 You might be able to increase your odds of finding the item by paying additional costs.
