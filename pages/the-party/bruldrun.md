@@ -6,7 +6,7 @@
 
 Background: Gunsmith · Follows Torag · Age 130 · Languages: Common, Dwarven
 
-**Current Gold:** 144.73 gp
+### **Current Gold:** 144.73 gp
 
 ## Stats
 
