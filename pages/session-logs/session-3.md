@@ -3,7 +3,9 @@
 Loose threads going into the session:
 
 -statue room with the traps
+
 -goblin voice behind barricade
+
 -any more rooms to explore?
 
 - *(what happened?)*
