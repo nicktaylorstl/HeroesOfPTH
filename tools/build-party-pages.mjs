@@ -22,6 +22,8 @@ const ROOT = path.join(import.meta.dirname, "..");
 const EXPORT_DIR = path.join(ROOT, "party", "export");
 const OUT_DIR = path.join(ROOT, "pages", "the-party");
 const NOTES_MARKER = "<!-- PLAYER NOTES — everything below this line survives sheet regeneration -->";
+const STASH_START = "<!-- PARTY STASH START — auto-generated from the Foundry party sheet; edits between these markers are overwritten -->";
+const STASH_END = "<!-- PARTY STASH END -->";
 
 // One-time correction: 75 gp per PC that the GM handed out but forgot to add
 // in Foundry before the 2026-09-17 exports. Set this back to 0 once a future
@@ -257,12 +259,65 @@ ${NOTES_MARKER}
   return md;
 }
 
+function stashSection(actor) {
+  const items = actor.items;
+  const byType = t => items.filter(i => i.type === t);
+  const qty = i => i.system.quantity ?? 1;
+  const priceGp = i => {
+    const p = i.system.price?.value || {};
+    return (p.pp || 0) * 10 + (p.gp || 0) + (p.sp || 0) * 0.1 + (p.cp || 0) * 0.01;
+  };
+
+  const gear = ["weapon", "armor", "equipment", "backpack", "consumable", "ammo"]
+    .flatMap(byType)
+    .filter(i => qty(i) > 0)
+    .map(i => `${i.name}${qty(i) > 1 ? ` ×${qty(i)}` : ""}`);
+
+  const treasures = byType("treasure").filter(i => qty(i) > 0);
+  const coins = treasures.filter(i => i.name in COIN_VALUES)
+    .reduce((sum, i) => sum + qty(i) * COIN_VALUES[i.name], 0);
+  const valuables = treasures.filter(i => !(i.name in COIN_VALUES));
+  const valuablesTotal = valuables.reduce((sum, i) => sum + qty(i) * priceGp(i), 0);
+  const valuablesList = valuables.map(i => {
+    const each = priceGp(i);
+    return `${i.name}${qty(i) > 1 ? ` ×${qty(i)}` : ""}${each ? ` (${each} gp${qty(i) > 1 ? " each" : ""})` : ""}`;
+  });
+
+  const description = (actor.system.details?.description || "").replace(/<[^>]+>/g, "").trim();
+
+  let md = `## Party Stash\n\n*Shared gear from the Foundry party sheet — regenerated with the character sheets, so don't edit this section.*\n`;
+  if (description) md += `\n${description}\n`;
+  if (gear.length) md += `\n**Gear:** ${gear.join(" · ")}\n`;
+  if (valuablesList.length) {
+    md += `\n**Valuables:** ${valuablesList.join(" · ")} — worth ${Math.round(valuablesTotal * 100) / 100} gp total\n`;
+  }
+  if (coins) md += `\n**Party coin:** ${Math.round(coins * 100) / 100} gp\n`;
+  if (!gear.length && !valuablesList.length && !coins) md += `\n*(empty — the party owns nothing. Sad.)*\n`;
+  return md;
+}
+
+function updateOverviewStash(actor) {
+  const outPath = path.join(OUT_DIR, "overview.md");
+  const block = `${STASH_START}\n\n${stashSection(actor)}\n${STASH_END}`;
+  let existing = fs.existsSync(outPath) ? fs.readFileSync(outPath, "utf8") : "# The Party\n";
+  const si = existing.indexOf(STASH_START);
+  const ei = existing.indexOf(STASH_END);
+  if (si !== -1 && ei !== -1) {
+    existing = existing.slice(0, si) + block + existing.slice(ei + STASH_END.length);
+  } else {
+    existing = existing.trimEnd() + "\n\n" + block + "\n";
+  }
+  fs.writeFileSync(outPath, existing, "utf8");
+  console.log(`updated pages/the-party/overview.md (party stash from ${actor.name})`);
+}
+
 /* ── main ── */
 const files = fs.readdirSync(EXPORT_DIR).filter(f => f.endsWith(".json"));
 if (!files.length) { console.error(`No JSON exports found in ${EXPORT_DIR}`); process.exit(1); }
 
 for (const file of files) {
   const actor = JSON.parse(fs.readFileSync(path.join(EXPORT_DIR, file), "utf8"));
+  if (actor.type === "party") { updateOverviewStash(actor); continue; }
   if (actor.type !== "character") { console.log(`skip ${file} (not a PC)`); continue; }
   const slug = slugify(actor.name);
   const outPath = path.join(OUT_DIR, `${slug}.md`);

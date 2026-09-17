@@ -16,3 +16,15 @@ Elf sorcerer, draconic bloodline. Stay out of her way. *(your player — add not
 
 ## [[Bruldrun]]
 Dwarf gunslinger, 130 years old, seen it all. *(your player — add notes here)*
+
+<!-- PARTY STASH START — auto-generated from the Foundry party sheet; edits between these markers are overwritten -->
+
+## Party Stash
+
+*Shared gear from the Foundry party sheet — regenerated with the character sheets, so don't edit this section.*
+
+**Gear:** Holy Water ×6 · Dagger · Leather Armor · Religious Symbol (Bone) · Nualia’s Remains · Healing Potion (Lesser) ×4 · Antiplague (Lesser) ×4 · Salve of Antiparalysis ×2
+
+**Valuables:** Silver Bowl (5 gp) · Garnet Bead ×3 (10 gp each) · Garnet Bead ×2 (5 gp each) · Garnet Bead (2 gp) — worth 47 gp total
+
+<!-- PARTY STASH END -->

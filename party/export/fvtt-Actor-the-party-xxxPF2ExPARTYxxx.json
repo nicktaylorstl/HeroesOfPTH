@@ -1,0 +1,1462 @@
+{
+  "type": "party",
+  "name": "The Party",
+  "prototypeToken": {
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": false,
+        "autoscale": false
+      }
+    },
+    "height": 1,
+    "width": 1,
+    "actorLink": true,
+    "sight": {
+      "enabled": true,
+      "range": 1,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "name": "The Party",
+    "displayName": 20,
+    "depth": 1,
+    "texture": {
+      "src": "https://assets.forge-vtt.com/6a1048ed6875812d55c15dfd/systems/pf2e/icons/default-icons/party.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "detectionModes": {},
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.959,
+      "previous": null
+    },
+    "details": {
+      "description": "",
+      "members": [
+        {
+          "uuid": "Actor.EJvAIZN71A6MqmqC"
+        },
+        {
+          "uuid": "Actor.MEMs2qyRnIoPY60D"
+        },
+        {
+          "uuid": "Actor.bEc03pCOccpideFs"
+        },
+        {
+          "uuid": "Actor.NWIW9O7rrJBsVOZn"
+        },
+        {
+          "uuid": "Actor.jolDy5ipC5ZrJGUo"
+        }
+      ]
+    },
+    "campaign": null
+  },
+  "img": "https://assets.forge-vtt.com/6a1048ed6875812d55c15dfd/systems/pf2e/icons/default-icons/party.svg",
+  "items": [
+    {
+      "_id": "iBXaGoloAoJxHfOx",
+      "_stats": {
+        "coreVersion": "14.361",
+        "systemId": "pf2e",
+        "systemVersion": "8.1.2",
+        "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA",
+        "createdTime": 1783106207081,
+        "modifiedTime": 1783106207082,
+        "lastModifiedBy": "JDJtvcGNPeV598ig",
+        "duplicateSource": "Scene.g76YMfCiDi5JlWrK.Token.cofeT7qUVj2QPyJi.Actor.nADcTAmwqpYXSXvd.Item.KvUUFto90igtIbrK",
+        "exportSource": null
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+      "name": "Leather Armor",
+      "sort": 100000,
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+        },
+        "rules": [],
+        "slug": "leather-armor",
+        "_migration": {
+          "version": 0.959,
+          "lastMigration": null,
+          "previous": null
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 0
+        },
+        "quantity": 1,
+        "baseItem": "leather-armor",
+        "bulk": {
+          "value": 1
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "gp": 2
+          }
+        },
+        "equipped": {
+          "carryType": "worn",
+          "invested": null
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "",
+            "img": "",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          }
+        },
+        "category": "light",
+        "group": "leather",
+        "acBonus": 1,
+        "strength": 0,
+        "dexCap": 4,
+        "checkPenalty": -1,
+        "speedPenalty": 0,
+        "grade": null,
+        "runes": {
+          "potency": 0,
+          "resilient": 0,
+          "property": []
+        },
+        "subitems": []
+      },
+      "type": "armor",
+      "effects": [],
+      "folder": null,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "pz2zTAB0vdFXW6A5",
+      "_stats": {
+        "coreVersion": "14.361",
+        "systemId": "pf2e",
+        "systemVersion": "8.1.2",
+        "compendiumSource": "Compendium.pf2e.equipment-srd.Item.plplsXJsqrdqNQVI",
+        "createdTime": 1783106209038,
+        "modifiedTime": 1783106209038,
+        "lastModifiedBy": "JDJtvcGNPeV598ig",
+        "duplicateSource": "Scene.g76YMfCiDi5JlWrK.Token.cofeT7qUVj2QPyJi.Actor.nADcTAmwqpYXSXvd.Item.cYo73Y9C0J0KEEuH",
+        "exportSource": null
+      },
+      "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+      "name": "Religious Symbol (Bone)",
+      "sort": 1700000,
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
+        },
+        "rules": [
+          {
+            "key": "RollOption",
+            "option": "has-religious-symbol",
+            "requiresEquipped": false
+          }
+        ],
+        "slug": "religious-symbol-wooden",
+        "_migration": {
+          "version": 0.959,
+          "lastMigration": null,
+          "previous": null
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 0
+        },
+        "quantity": 1,
+        "baseItem": null,
+        "bulk": {
+          "value": 0.1
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "sp": 1
+          }
+        },
+        "equipped": {
+          "carryType": "worn",
+          "invested": null
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "",
+            "img": "",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          }
+        },
+        "usage": {
+          "value": "other"
+        },
+        "subitems": []
+      },
+      "type": "equipment",
+      "effects": [],
+      "folder": null,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "QKlJki9DtexOZ07V",
+      "flags": {},
+      "name": "Nualia’s Remains",
+      "type": "equipment",
+      "effects": [],
+      "system": {
+        "description": {
+          "gm": "<p>The goblins weren’t particularly gentle when they hauled her skeleton from the coffin, but the remains are whole and will serve well as a focus for a @UUID[Compendium.pf2e.spells-srd.Item.gsYEuWv04XTDxe91]{Call Spirit} ritual.</p>\n<p>Once the PCs recover Nualia’s remains, they can deliver them back to Abstalar Zantus in the cathedral above, but it’ll still be a few days before his friend Audrahni arrives to cast the call spirit ritual. In the meantime, he encourages the PCs to keep exploring, particularly if he learns about the catacombs, and asks the PCs if they can map the complex out for him while they explore and ensure that there’s nothing dangerous within.</p>",
+          "value": "<p>The wrapped bundle sitting atop the impromptu altar contains Nualia’s disarticulated skeleton, readily identifiable by its left arm: the bones are black and the hand appears as a large talon.</p>"
+        },
+        "rules": [],
+        "slug": null,
+        "_migration": {
+          "version": 0.959,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.955,
+            "foundry": "14.361",
+            "system": "8.1.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "level": {
+          "value": 0
+        },
+        "quantity": 1,
+        "baseItem": null,
+        "bulk": {
+          "value": 2
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {}
+        },
+        "equipped": {
+          "carryType": "worn",
+          "invested": null
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "Unusual Object",
+            "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          },
+          "misidentified": {}
+        },
+        "usage": {
+          "value": "other"
+        },
+        "subitems": []
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/containers/misc/coffin-wood-brown.webp",
+      "folder": null,
+      "sort": 0,
+      "_stats": {
+        "systemId": "pf2e",
+        "systemVersion": "8.1.2",
+        "coreVersion": "14.361",
+        "createdTime": 1783106327456,
+        "modifiedTime": 1783106327457,
+        "lastModifiedBy": "JDJtvcGNPeV598ig",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "UrqTRId0tpEoVoLE",
+      "flags": {
+        "core": {}
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/consumables/potions/bottle-round-corked-orante-red.webp",
+      "name": "Healing Potion (Lesser)",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr>\n<p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain [[/r (2d8+5)[healing]]]{2d8+5 Hit Points}.</p>"
+        },
+        "rules": [],
+        "slug": "healing-potion-lesser",
+        "_migration": {
+          "version": 0.959,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.955,
+            "foundry": "14.361",
+            "system": "8.1.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "consumable",
+            "healing",
+            "magical",
+            "potion",
+            "vitality"
+          ],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "level": {
+          "value": 3
+        },
+        "quantity": 4,
+        "baseItem": null,
+        "bulk": {
+          "value": 0.1
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "gp": 12
+          }
+        },
+        "equipped": {
+          "carryType": "worn"
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "",
+            "img": "",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          },
+          "misidentified": {}
+        },
+        "category": "other",
+        "uses": {
+          "value": 1,
+          "max": 1,
+          "autoDestroy": true
+        },
+        "damage": null,
+        "usage": {
+          "value": "held-in-one-hand"
+        },
+        "spell": null
+      },
+      "type": "consumable",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "_stats": {
+        "systemId": "pf2e",
+        "systemVersion": "8.1.2",
+        "coreVersion": "14.361",
+        "createdTime": 1783106432635,
+        "modifiedTime": 1783106432638,
+        "lastModifiedBy": "JDJtvcGNPeV598ig",
+        "compendiumSource": "Compendium.pf2e.equipment-srd.Item.e0vSAQfxhHauiAoD",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "d38X8cR07w6CGhrI",
+      "flags": {
+        "core": {}
+      },
+      "img": "https://assets.forge-vtt.com/6a1048ed6875812d55c15dfd/systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antiplague.webp",
+      "name": "Antiplague (Lesser)",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr>\n<p>Antiplague can fortify the body's defenses against diseases. Upon drinking an antiplague, you gain a +2 item bonus to Fortitude saving throws against diseases for 24 hours; this applies to your daily save against a disease's progression.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.kkDbalYEavzRpYlp]{Effect: Antiplague (Lesser)}</p>"
+        },
+        "rules": [],
+        "slug": "antiplague-lesser",
+        "_migration": {
+          "version": 0.959,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.955,
+            "foundry": "14.361",
+            "system": "8.1.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "alchemical",
+            "consumable",
+            "elixir",
+            "healing"
+          ],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "level": {
+          "value": 1
+        },
+        "quantity": 4,
+        "baseItem": null,
+        "bulk": {
+          "value": 0.1
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "gp": 3
+          }
+        },
+        "equipped": {
+          "carryType": "worn"
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "",
+            "img": "",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          },
+          "misidentified": {}
+        },
+        "category": "other",
+        "uses": {
+          "value": 1,
+          "max": 1,
+          "autoDestroy": true
+        },
+        "damage": null,
+        "usage": {
+          "value": "held-in-one-hand"
+        },
+        "spell": null
+      },
+      "type": "consumable",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "_stats": {
+        "systemId": "pf2e",
+        "systemVersion": "8.1.2",
+        "coreVersion": "14.361",
+        "createdTime": 1783106432636,
+        "modifiedTime": 1783106432639,
+        "lastModifiedBy": "JDJtvcGNPeV598ig",
+        "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UqinuuCWePTYGhVO",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "q87jQ8TUi19f9dXn",
+      "flags": {
+        "core": {}
+      },
+      "img": "https://assets.forge-vtt.com/6a1048ed6875812d55c15dfd/systems/pf2e/icons/equipment/consumables/other-consumables/holy-water.webp",
+      "name": "Holy Water",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<hr>\n<p>This vial contains water blessed by a benevolent deity. You activate a vial of <em>holy water</em> by throwing it as a Strike. It's a simple thrown weapon with a range increment of 20 feet.</p>\n<p><em>Holy water</em> deals 1d6 spirit damage and 1 spirit splash damage. <em>Holy water</em> can damage only creatures with the unholy trait.</p>"
+        },
+        "rules": [
+          {
+            "key": "Note",
+            "selector": "{item|id}-damage",
+            "text": "PF2E.SpecificRule.Equipment.HolyWater.Note",
+            "title": "{item|name}"
+          }
+        ],
+        "slug": "holy-water",
+        "_migration": {
+          "version": 0.959,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.955,
+            "foundry": "14.361",
+            "system": "8.1.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "consumable",
+            "divine",
+            "holy",
+            "splash",
+            "thrown"
+          ],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "Pathfinder GM Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "quantity": 6,
+        "baseItem": null,
+        "bulk": {
+          "value": 0.1
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "gp": 3
+          }
+        },
+        "equipped": {
+          "carryType": "worn",
+          "invested": null,
+          "handsHeld": 0
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "",
+            "img": "",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          },
+          "misidentified": {}
+        },
+        "usage": {
+          "value": "held-in-one-hand",
+          "canBeAmmo": false
+        },
+        "category": "simple",
+        "group": null,
+        "bonus": {
+          "value": 0
+        },
+        "damage": {
+          "dice": 1,
+          "die": "d6",
+          "damageType": "spirit",
+          "persistent": null
+        },
+        "splashDamage": {
+          "value": 1
+        },
+        "range": 20,
+        "expend": null,
+        "ammo": null,
+        "reload": {
+          "value": "-"
+        },
+        "grade": null,
+        "runes": {
+          "potency": 0,
+          "striking": 0,
+          "property": []
+        },
+        "specific": null,
+        "subitems": [],
+        "bonusDamage": {
+          "value": 0
+        },
+        "property1": {
+          "value": "",
+          "dice": 0,
+          "die": "",
+          "damageType": "",
+          "critDice": 0,
+          "critDie": "",
+          "critDamage": "",
+          "critDamageType": ""
+        }
+      },
+      "type": "weapon",
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "_stats": {
+        "systemId": "pf2e",
+        "systemVersion": "8.1.2",
+        "coreVersion": "14.361",
+        "createdTime": 1783106432637,
+        "modifiedTime": 1783106432639,
+        "lastModifiedBy": "JDJtvcGNPeV598ig",
+        "compendiumSource": "Compendium.pf2e.equipment-srd.Item.z9T4c1hXwOotsMCp",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "O2r07mRWO4dcnvJD",
+      "flags": {
+        "core": {}
+      },
+      "img": "https://assets.forge-vtt.com/6a1048ed6875812d55c15dfd/systems/pf2e/icons/equipment/consumables/oils/salve-of-antiparalysis.webp",
+      "name": "Salve of Antiparalysis",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr>\n<p>Applying this filmy salve to a creature helps it overcome magical paralysis. The salve attempts to counteract the paralysis (counteract rank 3rd, counteract modifier +22)</p>"
+        },
+        "rules": [],
+        "slug": "salve-of-antiparalysis",
+        "_migration": {
+          "version": 0.959,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.955,
+            "foundry": "14.361",
+            "system": "8.1.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "consumable",
+            "healing",
+            "magical",
+            "oil"
+          ],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "level": {
+          "value": 6
+        },
+        "quantity": 2,
+        "baseItem": null,
+        "bulk": {
+          "value": 0.1
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "gp": 40
+          }
+        },
+        "equipped": {
+          "carryType": "worn"
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "Unusual Object",
+            "img": "systems/pf2e/icons/unidentified_item_icons/other-consumables.webp",
+            "data": {
+              "description": {
+                "value": "The nature of this object is unclear."
+              }
+            }
+          },
+          "misidentified": {}
+        },
+        "category": "other",
+        "uses": {
+          "value": 1,
+          "max": 1,
+          "autoDestroy": true
+        },
+        "damage": null,
+        "usage": {
+          "value": "held-in-two-hands"
+        },
+        "spell": null
+      },
+      "type": "consumable",
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "_stats": {
+        "systemId": "pf2e",
+        "systemVersion": "8.1.2",
+        "coreVersion": "14.361",
+        "createdTime": 1783106432638,
+        "modifiedTime": 1787473240519,
+        "lastModifiedBy": "JDJtvcGNPeV598ig",
+        "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ZEKmCg8K2hUHbmnT",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "3fYm3dhqkmv9bdKM",
+      "flags": {},
+      "name": "Silver Bowl",
+      "type": "treasure",
+      "effects": [],
+      "system": {
+        "description": {
+          "gm": "",
+          "value": ""
+        },
+        "rules": [],
+        "slug": null,
+        "_migration": {
+          "version": 0.959,
+          "previous": {
+            "schema": 0.955,
+            "foundry": "14.361",
+            "system": "8.1.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "level": {
+          "value": 0
+        },
+        "quantity": 1,
+        "baseItem": null,
+        "bulk": {
+          "value": 0.1
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "gp": 5
+          },
+          "per": 1
+        },
+        "equipped": {
+          "carryType": "worn"
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "Unusual Treasure",
+            "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          }
+        },
+        "category": null,
+        "temporary": false
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/containers/kitchenware/bowl-clay-brown.webp",
+      "folder": null,
+      "sort": 100000,
+      "_stats": {
+        "systemId": "pf2e",
+        "systemVersion": "8.1.2",
+        "coreVersion": "14.361",
+        "createdTime": 1786134728606,
+        "modifiedTime": 1786134728608,
+        "lastModifiedBy": "JDJtvcGNPeV598ig",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "SVDVbfhyVWIcM2on",
+      "flags": {
+        "core": {}
+      },
+      "img": "https://assets.forge-vtt.com/6a1048ed6875812d55c15dfd/systems/pf2e/icons/equipment/treasure/gems/greater-semiprecious-stones/garnet.webp",
+      "name": "Garnet Bead",
+      "system": {
+        "description": {
+          "gm": "<p>These seven garnets are useful in revealing the hidden treasure in area @UUID[JournalEntry.pf2ap20001bonesa.JournalEntryPage.01thethreestep00]{B4}.</p>",
+          "value": ""
+        },
+        "rules": [],
+        "slug": "garnet",
+        "_migration": {
+          "version": 0.959,
+          "previous": {
+            "schema": 0.955,
+            "foundry": "14.361",
+            "system": "8.1.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "Pathfinder GM Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 0
+        },
+        "quantity": 3,
+        "baseItem": null,
+        "bulk": {
+          "value": 0
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "gp": 10
+          },
+          "per": 1
+        },
+        "equipped": {
+          "carryType": "worn"
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "Unusual Treasure",
+            "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+            "data": {
+              "description": {
+                "value": "The nature of this treasure is unclear."
+              }
+            }
+          }
+        },
+        "category": "gem",
+        "temporary": false
+      },
+      "type": "treasure",
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "_stats": {
+        "systemId": "pf2e",
+        "systemVersion": "8.1.2",
+        "coreVersion": "14.361",
+        "createdTime": 1786134728606,
+        "modifiedTime": 1786134728608,
+        "lastModifiedBy": "JDJtvcGNPeV598ig",
+        "compendiumSource": "Compendium.pf2e.equipment-srd.Item.NuX85j3bYLYVcINr",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "VyNuS2tZTwbvl7Zh",
+      "flags": {
+        "core": {}
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/weapons/daggers/dagger-straight-blue.webp",
+      "name": "Dagger",
+      "system": {
+        "description": {
+          "gm": "<p>A @Check[perception|dc:22] check made while examining the dagger reveals that its pommel can be detached—a seventh garnet sits inside the dagger’s @UUID[Actor.BvTbIYqklirW06fC]{hollow handle}.</p>",
+          "value": "<p>The rune of Abraxas is etched on the blade.</p>\n<hr>\n<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
+        },
+        "rules": [],
+        "slug": "dagger",
+        "_migration": {
+          "version": 0.959,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.955,
+            "foundry": "14.361",
+            "system": "8.1.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "agile",
+            "finesse",
+            "thrown-10",
+            "versatile-s"
+          ],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 0
+        },
+        "quantity": 1,
+        "baseItem": "dagger",
+        "bulk": {
+          "value": 0.1
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "sp": 2
+          }
+        },
+        "equipped": {
+          "carryType": "worn",
+          "invested": null,
+          "handsHeld": 0
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": "cold-iron",
+          "grade": "low"
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "Unusual Dagger",
+            "img": "systems/pf2e/icons/unidentified_item_icons/weapon.webp",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          },
+          "misidentified": {}
+        },
+        "usage": {
+          "value": "held-in-one-hand",
+          "canBeAmmo": false
+        },
+        "category": "simple",
+        "group": "knife",
+        "bonus": {
+          "value": 0
+        },
+        "damage": {
+          "dice": 1,
+          "die": "d4",
+          "damageType": "piercing",
+          "persistent": null
+        },
+        "splashDamage": {
+          "value": 0
+        },
+        "range": null,
+        "expend": null,
+        "ammo": null,
+        "reload": {
+          "value": "-"
+        },
+        "grade": null,
+        "runes": {
+          "potency": 0,
+          "striking": 0,
+          "property": []
+        },
+        "specific": null,
+        "subitems": [],
+        "bonusDamage": {
+          "value": 0
+        },
+        "property1": {
+          "value": "",
+          "dice": 0,
+          "die": "",
+          "damageType": "",
+          "critDice": 0,
+          "critDie": "",
+          "critDamage": "",
+          "critDamageType": "",
+          "strikeConditionType": "",
+          "strikeConditionValue": null,
+          "criticalConditionType": "",
+          "criticalConditionValue": null
+        }
+      },
+      "type": "weapon",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "_stats": {
+        "systemId": "pf2e",
+        "systemVersion": "8.1.2",
+        "coreVersion": "14.361",
+        "createdTime": 1786134728607,
+        "modifiedTime": 1786134728609,
+        "lastModifiedBy": "JDJtvcGNPeV598ig",
+        "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "LwZUUDzQ0SMsnKbV",
+      "flags": {
+        "core": {}
+      },
+      "img": "https://assets.forge-vtt.com/6a1048ed6875812d55c15dfd/systems/pf2e/icons/equipment/treasure/gems/greater-semiprecious-stones/garnet.webp",
+      "name": "Garnet Bead",
+      "system": {
+        "description": {
+          "gm": "<p>These seven garnets are useful in revealing the hidden treasure in area @UUID[JournalEntry.pf2ap20001bonesa.JournalEntryPage.01thethreestep00]{B4}.</p>",
+          "value": ""
+        },
+        "rules": [],
+        "slug": "garnet",
+        "_migration": {
+          "version": 0.959,
+          "previous": {
+            "schema": 0.955,
+            "foundry": "14.361",
+            "system": "8.1.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "Pathfinder GM Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 0
+        },
+        "quantity": 2,
+        "baseItem": null,
+        "bulk": {
+          "value": 0
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "gp": 5
+          },
+          "per": 1
+        },
+        "equipped": {
+          "carryType": "worn"
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "Unusual Treasure",
+            "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          }
+        },
+        "category": "gem",
+        "temporary": false
+      },
+      "type": "treasure",
+      "effects": [],
+      "folder": null,
+      "sort": 150000,
+      "_stats": {
+        "systemId": "pf2e",
+        "systemVersion": "8.1.2",
+        "coreVersion": "14.361",
+        "createdTime": 1786134728607,
+        "modifiedTime": 1786134728609,
+        "lastModifiedBy": "JDJtvcGNPeV598ig",
+        "compendiumSource": "Compendium.pf2e.equipment-srd.Item.NuX85j3bYLYVcINr",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "YfSus8fPpUsmhqbj",
+      "flags": {
+        "core": {}
+      },
+      "img": "https://assets.forge-vtt.com/6a1048ed6875812d55c15dfd/systems/pf2e/icons/equipment/treasure/gems/greater-semiprecious-stones/garnet.webp",
+      "name": "Garnet Bead",
+      "system": {
+        "description": {
+          "gm": "<p>These seven garnets are useful in revealing the hidden treasure in area @UUID[JournalEntry.pf2ap20001bonesa.JournalEntryPage.01thethreestep00]{B4}.</p>",
+          "value": ""
+        },
+        "rules": [],
+        "slug": "garnet",
+        "_migration": {
+          "version": 0.959,
+          "previous": {
+            "schema": 0.955,
+            "foundry": "14.361",
+            "system": "8.1.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "Pathfinder GM Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 0
+        },
+        "quantity": 1,
+        "baseItem": null,
+        "bulk": {
+          "value": 0
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "gp": 2
+          },
+          "per": 1
+        },
+        "equipped": {
+          "carryType": "worn"
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "Unusual Treasure",
+            "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          }
+        },
+        "category": "gem",
+        "temporary": false
+      },
+      "type": "treasure",
+      "effects": [],
+      "folder": null,
+      "sort": 125000,
+      "_stats": {
+        "systemId": "pf2e",
+        "systemVersion": "8.1.2",
+        "coreVersion": "14.361",
+        "createdTime": 1786134728608,
+        "modifiedTime": 1786134728609,
+        "lastModifiedBy": "JDJtvcGNPeV598ig",
+        "compendiumSource": "Compendium.pf2e.equipment-srd.Item.NuX85j3bYLYVcINr",
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    }
+  ],
+  "folder": null,
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.361",
+    "systemId": "pf2e",
+    "systemVersion": "8.1.2",
+    "createdTime": 1778841798025,
+    "modifiedTime": 1785957650251,
+    "lastModifiedBy": "JDJtvcGNPeV598ig",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "pthfinder",
+      "uuid": "Actor.xxxPF2ExPARTYxxx",
+      "coreVersion": "14.361",
+      "systemId": "pf2e",
+      "systemVersion": "8.1.2"
+    }
+  },
+  "ownership": {
+    "default": 2
+  }
+}
