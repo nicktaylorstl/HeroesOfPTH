@@ -4,7 +4,7 @@
 
 What is the main quest as you understand it right now? 
 
-Somebody add it here
+(Somebody add it here)
 
 ### Side Quests
 
