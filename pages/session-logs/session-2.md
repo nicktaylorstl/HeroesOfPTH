@@ -14,7 +14,7 @@ You found some nice runes. Bruldrun has been waiting for these.
 
 You found an interesting map of the region written in ancient Thassilonian.
 
-You fought had a super climactic battle with the **fire monster** who spit boiling blood on N'Jal. 
+You fought a super climactic battle with the **fire monster** who spit boiling blood on N'Jal. 
 
 You found an altar to a **different** demon Lord. 
 
