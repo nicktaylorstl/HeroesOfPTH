@@ -99,6 +99,42 @@
   .page-list a:hover { background: var(--accent2); }
   .page-list a.active { background: var(--card-bg); color: var(--title-color); border-left: 2px solid var(--accent); }
 
+  /* folder tree */
+  .page-list ul.nested { list-style: none; margin-left: 0.85rem; border-left: 1px solid var(--border-dim); padding-left: 0.35rem; }
+  .folder-row {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    border-radius: 4px;
+    padding: 0.2rem 0.3rem;
+  }
+  .folder-row:hover { background: var(--card-bg); }
+  .folder-toggle {
+    flex: 1;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .folder-btns { display: none; gap: 0.2rem; flex: none; }
+  .folder-row:hover .folder-btns { display: flex; }
+  .mini {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 3px;
+    font-size: 0.7rem;
+    line-height: 1;
+    padding: 0.15rem 0.3rem;
+    cursor: pointer;
+  }
+  .mini:hover { background: var(--accent2); color: var(--text); border-color: var(--accent); }
+
   .btn {
     font-family: 'Cinzel', serif;
     font-size: 0.72rem;
@@ -267,6 +303,7 @@
     <h2>Pages</h2>
     <ul class="page-list" id="pageList"><li class="loading">Loading…</li></ul>
     <button class="btn block" id="newPageBtn">+ New Page</button>
+    <button class="btn block ghost" id="newFolderBtn">+ New Folder</button>
   </nav>
 
   <main class="content">
@@ -311,9 +348,11 @@ const CONFIG = {
 
 const API = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents`;
 const COMMITS = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/commits`;
+const TREE = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/git/trees/main?recursive=1`;
+const MAX_FOLDER_DEPTH = 3; // must match the worker's path rule
 
-let pages = [];          // [{slug, title}]
-let currentSlug = null;
+let pages = [];          // [{path: "the-party/overview", title: "Overview"}] — path has no pages/ prefix or .md
+let currentSlug = null;  // path of the page being viewed, e.g. "the-party/overview"
 let currentSha = null;   // sha of the loaded file, needed for conflict-safe saves
 let currentRaw = "";
 
@@ -326,8 +365,13 @@ function slugify(name) {
     .replace(/^-+|-+$/g, "")
     .slice(0, 60);
 }
+function slugifyPath(path) {
+  return path.split("/").map(slugify).filter(Boolean).slice(0, MAX_FOLDER_DEPTH + 1).join("/");
+}
+function basename(path) { return path.split("/").pop(); }
+function dirname(path) { return path.includes("/") ? path.split("/").slice(0, -1).join("/") : ""; }
 function titleFromSlug(slug) {
-  return slug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+  return basename(slug).split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
 }
 function b64decodeUtf8(b64) {
   const bin = atob(b64.replace(/\s/g, ""));
@@ -343,33 +387,125 @@ function showStatus(msg, ok) {
 }
 function clearStatus() { $("status").className = "status"; }
 
-/* ── Page list ── */
+/* ── Page list (whole tree in one API call) ── */
 async function loadPageList() {
   try {
-    const res = await fetch(`${API}/pages`, { headers: { Accept: "application/vnd.github+json" } });
+    const res = await fetch(TREE, { headers: { Accept: "application/vnd.github+json" } });
     if (!res.ok) throw new Error("GitHub API " + res.status);
-    const files = await res.json();
-    pages = files
-      .filter(f => f.name.endsWith(".md"))
-      .map(f => ({ slug: f.name.replace(/\.md$/, ""), title: titleFromSlug(f.name.replace(/\.md$/, "")) }))
-      .sort((a, b) => a.slug === "home" ? -1 : b.slug === "home" ? 1 : a.title.localeCompare(b.title));
+    const data = await res.json();
+    pages = data.tree
+      .filter(t => t.type === "blob" && /^pages\/.+\.md$/.test(t.path))
+      .map(t => {
+        const path = t.path.slice("pages/".length).replace(/\.md$/, "");
+        return { path, title: titleFromSlug(path) };
+      });
     renderPageList();
   } catch (e) {
     $("pageList").innerHTML = "<li class='loading'>Couldn't load page list. Refresh?</li>";
   }
 }
-function renderPageList() {
-  $("pageList").innerHTML = pages.map(p =>
-    `<li><a href="#${p.slug}" class="${p.slug === currentSlug ? "active" : ""}">${p.title}</a></li>`
-  ).join("");
+
+/* Collapsed folders persist per browser */
+let collapsed;
+try { collapsed = new Set(JSON.parse(localStorage.getItem("wiki-collapsed") || "[]")); }
+catch (e) { collapsed = new Set(); }
+function saveCollapsed() {
+  try { localStorage.setItem("wiki-collapsed", JSON.stringify([...collapsed])); } catch (e) {}
 }
 
-/* ── Wiki links: [[Page Name]] → internal links ── */
+function buildTree() {
+  const root = { folders: {}, pages: [] };
+  for (const p of pages) {
+    const parts = p.path.split("/");
+    let node = root;
+    for (let i = 0; i < parts.length - 1; i++) {
+      node = node.folders[parts[i]] = node.folders[parts[i]] || { folders: {}, pages: [] };
+    }
+    node.pages.push(p);
+  }
+  return root;
+}
+
+const natural = (a, b) => a.localeCompare(b, undefined, { numeric: true });
+function sortPages(list) {
+  // home / overview pinned to the top, the rest in natural order (session-2 < session-10)
+  return [...list].sort((a, b) => {
+    const pin = s => (basename(s.path) === "home" || basename(s.path) === "overview") ? 0 : 1;
+    return pin(a) - pin(b) || natural(a.title, b.title);
+  });
+}
+
+function renderTree(node, prefix) {
+  let html = "";
+  for (const p of sortPages(node.pages)) {
+    html += `<li><a href="#${p.path}" class="${p.path === currentSlug ? "active" : ""}">${p.title}</a></li>`;
+  }
+  for (const name of Object.keys(node.folders).sort(natural)) {
+    const fpath = prefix ? `${prefix}/${name}` : name;
+    const open = !collapsed.has(fpath);
+    const depth = fpath.split("/").length;
+    html += `<li class="folder">
+      <div class="folder-row">
+        <span class="folder-toggle" data-folder="${fpath}">${open ? "▾" : "▸"} ${titleFromSlug(name)}</span>
+        <span class="folder-btns">
+          <button class="mini" data-newpage="${fpath}" title="New page in ${titleFromSlug(name)}">+ page</button>
+          ${depth < MAX_FOLDER_DEPTH ? `<button class="mini" data-newfolder="${fpath}" title="New folder in ${titleFromSlug(name)}">+ 📁</button>` : ""}
+        </span>
+      </div>
+      ${open ? `<ul class="page-list nested">${renderTree(node.folders[name], fpath)}</ul>` : ""}
+    </li>`;
+  }
+  return html;
+}
+
+function renderPageList() {
+  $("pageList").innerHTML = renderTree(buildTree(), "");
+}
+
+$("pageList").addEventListener("click", e => {
+  const toggle = e.target.closest("[data-folder]");
+  if (toggle) {
+    const f = toggle.dataset.folder;
+    collapsed.has(f) ? collapsed.delete(f) : collapsed.add(f);
+    saveCollapsed();
+    renderPageList();
+    return;
+  }
+  const addPage = e.target.closest("[data-newpage]");
+  if (addPage) { newPage(addPage.dataset.newpage); return; }
+  const addFolder = e.target.closest("[data-newfolder]");
+  if (addFolder) { newFolder(addFolder.dataset.newfolder); return; }
+});
+
+/* ── Wiki links: [[Page Name]] → internal links ──
+   [[Name]] finds a page with that name in any folder; [[folder/name]] is explicit.
+   A folder's name links to its Overview page. Red links create the page in the
+   same folder as the page you clicked from. */
+function resolveWikiLink(name) {
+  if (name.includes("/")) {
+    const path = slugifyPath(name);
+    return { path, exists: pages.some(p => p.path === path) };
+  }
+  const slug = slugify(name);
+  const page = pages.find(p => basename(p.path) === slug);
+  if (page) return { path: page.path, exists: true };
+  // matches a folder? link to its overview (or first page inside)
+  const inFolder = pages.filter(p => p.path.split("/").slice(0, -1).includes(slug));
+  if (inFolder.length) {
+    const direct = inFolder.filter(p => dirname(p.path).split("/").pop() === slug);
+    const candidates = (direct.length ? direct : inFolder);
+    const overview = candidates.find(p => basename(p.path) === "overview");
+    return { path: (overview || sortPages(candidates)[0]).path, exists: true };
+  }
+  // doesn't exist yet — create it next to the current page
+  const dir = currentSlug ? dirname(currentSlug) : "";
+  return { path: dir ? `${dir}/${slug}` : slug, exists: false };
+}
+
 function preprocessWikiLinks(md) {
   return md.replace(/\[\[([^\]]+)\]\]/g, (_, name) => {
-    const slug = slugify(name);
-    const exists = pages.some(p => p.slug === slug);
-    return `<a href="#${slug}" class="${exists ? "wiki-link" : "wiki-link-missing"}" title="${exists ? "" : "Page doesn't exist yet — click to create it"}">${name.trim()}</a>`;
+    const { path, exists } = resolveWikiLink(name);
+    return `<a href="#${path}" class="${exists ? "wiki-link" : "wiki-link-missing"}" title="${exists ? "" : "Page doesn't exist yet — click to create it"}">${name.trim()}</a>`;
   });
 }
 
@@ -467,27 +603,54 @@ async function savePage() {
   }
 }
 
-/* ── New page ── */
-function newPage() {
-  const name = prompt("Name of the new page (e.g. 'Ameiko Kaijitsu' or 'Session 5'):");
+/* ── New page / new folder ── */
+function newPage(folder) {
+  const where = folder ? ` in ${titleFromSlug(folder)}` : "";
+  const name = prompt(`Name of the new page${where} (e.g. 'Ameiko Kaijitsu' or 'Session 5'):`);
   if (!name) return;
   const slug = slugify(name);
   if (!slug) return;
-  location.hash = "#" + slug;
+  location.hash = "#" + (folder ? `${folder}/${slug}` : slug);
   // loadPage fires via hashchange; open the editor once it settles
+  setTimeout(showEditor, 400);
+}
+function newFolder(parent) {
+  const depth = parent ? parent.split("/").length : 0;
+  if (depth >= MAX_FOLDER_DEPTH) { alert(`Folders can only go ${MAX_FOLDER_DEPTH} levels deep.`); return; }
+  const where = parent ? ` inside ${titleFromSlug(parent)}` : "";
+  const fname = prompt(`Name of the new folder${where} (e.g. 'Places' or 'Magic Items'):`);
+  if (!fname) return;
+  const fslug = slugify(fname);
+  if (!fslug) return;
+  // git can't store an empty folder — the folder appears with its first page
+  const pname = prompt("Name of the first page inside it:", "Overview");
+  if (!pname) return;
+  const pslug = slugify(pname);
+  if (!pslug) return;
+  location.hash = "#" + (parent ? `${parent}/` : "") + `${fslug}/${pslug}`;
   setTimeout(showEditor, 400);
 }
 
 /* ── Routing ── */
 function route() {
-  const slug = (location.hash || "#home").slice(1) || "home";
+  const raw = decodeURIComponent((location.hash || "#home").slice(1)) || "home";
+  let slug = slugifyPath(raw) || "home";
+  // a hash naming a folder (e.g. old bookmark #the-party) opens that folder's overview
+  if (!pages.some(p => p.path === slug)) {
+    const inFolder = pages.filter(p => dirname(p.path) === slug || dirname(p.path).startsWith(slug + "/"));
+    if (inFolder.length) {
+      const overview = inFolder.find(p => p.path === `${slug}/overview`);
+      slug = (overview || sortPages(inFolder)[0]).path;
+    }
+  }
   loadPage(slug);
 }
 
 $("editBtn").addEventListener("click", showEditor);
 $("cancelBtn").addEventListener("click", () => { clearStatus(); showView(); });
 $("saveBtn").addEventListener("click", savePage);
-$("newPageBtn").addEventListener("click", newPage);
+$("newPageBtn").addEventListener("click", () => newPage(""));
+$("newFolderBtn").addEventListener("click", () => newFolder(""));
 window.addEventListener("hashchange", route);
 
 (async function init() {

@@ -12,8 +12,8 @@ Player's browser ──saves──▶ Cloudflare Worker ──commits──▶ G
 ```
 
 - `index.html` — the whole site (single page app). Reads markdown from the repo via GitHub's public API and renders it.
-- `pages/*.md` — the wiki content. One file per page.
-- `worker/worker.js` — the save proxy you deploy to Cloudflare (free tier). It's the only thing that can write, it only writes `pages/*.md`, and it requires the table password.
+- `pages/**/*.md` — the wiki content. One file per page; subdirectories show up as folders in the sidebar (up to 3 levels deep). A folder exists as long as it has at least one page in it — that's just how git works.
+- `worker/worker.js` — the save proxy you deploy to Cloudflare (free tier). It's the only thing that can write, it only writes markdown files under `pages/`, and it requires the table password.
 
 ## One-time setup (~15 minutes)
 
@@ -72,7 +72,8 @@ Send them the site URL and the table password. That's all they need — their br
 ## GM maintenance
 
 - **Revert vandalism / mistakes:** the repo's commit history has every version of every page. On GitHub: open the file → History → pick the good version → copy it back (or `git revert`).
-- **Delete a page:** delete the file on GitHub (the site's editor can create and change pages, but deliberately can't delete).
+- **Delete a page:** delete the file on GitHub (the site's editor can create and change pages, but deliberately can't delete). Deleting a folder's last page removes the folder too.
+- **Rename/move a page:** on GitHub (or locally with `git mv`) — the site treats the file path as the page's location.
 - **Change the password:** update the `TABLE_PASSWORD` secret on the worker.
 - **Rate limits:** reading uses GitHub's anonymous API (60 requests/hour per player IP). Fine for a gaming table; if someone ever hits it, it resets within the hour.
 

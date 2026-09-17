@@ -1,8 +1,4 @@
-# Session Log
-
-*Newest session at the top. Anyone can add a recap — even a few bullet points help!*
-
-## Session 1 — *(date)*
+# Session 1 — *(date)*
 
 - *(what happened?)*
 - *(who did we meet? add them to [[People of Sandpoint]])*

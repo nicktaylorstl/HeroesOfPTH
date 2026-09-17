@@ -44,8 +44,9 @@ export default {
     if (!env.TABLE_PASSWORD || password !== env.TABLE_PASSWORD)
       return json({ error: "wrong password" }, 403);
 
-    // Only allow markdown files inside pages/ — nothing else in the repo is writable
-    if (typeof path !== "string" || !/^pages\/[a-z0-9-]{1,60}\.md$/.test(path))
+    // Only allow markdown files inside pages/ (up to 3 folder levels deep) —
+    // nothing else in the repo is writable
+    if (typeof path !== "string" || !/^pages\/(?:[a-z0-9-]{1,60}\/){0,3}[a-z0-9-]{1,60}\.md$/.test(path))
       return json({ error: "invalid path" }, 400);
 
     if (typeof content !== "string" || content.length > 200000)
