@@ -72,7 +72,7 @@ Send them the site URL and the table password. That's all they need — their br
 ## GM maintenance
 
 - **Revert vandalism / mistakes:** the repo's commit history has every version of every page. On GitHub: open the file → History → pick the good version → copy it back (or `git revert`).
-- **Delete a page:** delete the file on GitHub (the site's editor can create and change pages, but deliberately can't delete). Deleting a folder's last page removes the folder too.
+- **Delete a page:** the 🗑 Delete button on any page (needs the table password). Deletions are commits like everything else, so any deleted page can be restored from the repo's history. Deleting a folder's last page removes the folder too.
 - **Rename/move a page:** on GitHub (or locally with `git mv`) — the site treats the file path as the page's location.
 - **Change the password:** update the `TABLE_PASSWORD` secret on the worker.
 - **Update character sheets:** re-export the actors from Foundry VTT into `party/export/`, run `node tools/build-party-pages.mjs`, then commit and push. Anything players wrote below the "PLAYER NOTES" marker on a sheet page is preserved.

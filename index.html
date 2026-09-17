@@ -312,6 +312,7 @@
     <!-- View mode -->
     <div id="viewMode">
       <div class="page-actions">
+        <button class="btn ghost danger" id="deleteBtn" style="display:none">🗑 Delete</button>
         <button class="btn" id="editBtn">✎ Edit This Page</button>
       </div>
       <div class="article" id="article"><div class="loading">Loading…</div></div>
@@ -518,6 +519,7 @@ async function loadPage(slug) {
   currentRaw = "";
   showView();
   renderPageList();
+  $("deleteBtn").style.display = "none";
   $("article").innerHTML = "<div class='loading'>Loading…</div>";
   $("pageMeta").textContent = "";
   try {
@@ -531,6 +533,7 @@ async function loadPage(slug) {
     const data = await res.json();
     currentSha = data.sha;
     currentRaw = b64decodeUtf8(data.content);
+    $("deleteBtn").style.display = "";
     const html = DOMPurify.sanitize(marked.parse(preprocessWikiLinks(currentRaw)));
     $("article").innerHTML = html;
     loadPageMeta(slug);
@@ -605,6 +608,49 @@ async function savePage() {
   }
 }
 
+/* ── Delete page ── */
+async function deletePage() {
+  if (!currentSha) return;
+  const title = titleFromSlug(currentSlug);
+  // no confirmation needed: a delete is just a git commit, so the GM can
+  // always restore the page from the repo's history
+  let author = localStorage.getItem("wiki-author") || prompt("Your name (so the party knows who deleted it):") || "";
+  author = author.trim();
+  if (!author) { showStatus("Not deleted — a name is required.", false); return; }
+  const password = localStorage.getItem("wiki-password") || prompt("Table password:") || "";
+  if (!password) { showStatus("Not deleted — the table password is required.", false); return; }
+  try { localStorage.setItem("wiki-author", author); localStorage.setItem("wiki-password", password); } catch (e) {}
+
+  $("deleteBtn").disabled = true;
+  try {
+    const res = await fetch(CONFIG.workerUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "delete",
+        password,
+        author,
+        path: `pages/${currentSlug}.md`,
+        sha: currentSha,
+        message: `Delete ${title} — ${author}`
+      })
+    });
+    const out = await res.json().catch(() => ({}));
+    if (res.status === 403) { showStatus("Wrong table password.", false); }
+    else if (res.status === 409) { showStatus("Someone edited this page just now — refresh and try again.", false); }
+    else if (!res.ok) { showStatus("Delete failed: " + (out.error || res.status), false); }
+    else {
+      await loadPageList();
+      if (location.hash === "#home") route(); else location.hash = "#home";
+      showStatus(`Deleted "${title}".`, true);
+    }
+  } catch (e) {
+    showStatus("Couldn't reach the save server. Check your connection.", false);
+  } finally {
+    $("deleteBtn").disabled = false;
+  }
+}
+
 /* ── New page / new folder ── */
 function newPage(folder) {
   const where = folder ? ` in ${titleFromSlug(folder)}` : "";
@@ -649,6 +695,7 @@ function route() {
 }
 
 $("editBtn").addEventListener("click", showEditor);
+$("deleteBtn").addEventListener("click", deletePage);
 $("cancelBtn").addEventListener("click", () => { clearStatus(); showView(); });
 $("saveBtn").addEventListener("click", savePage);
 $("newPageBtn").addEventListener("click", () => newPage(""));

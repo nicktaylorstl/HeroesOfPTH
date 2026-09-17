@@ -39,31 +39,39 @@ export default {
     let body;
     try { body = await request.json(); } catch { return json({ error: "invalid JSON" }, 400); }
 
-    const { password, path, content, message, sha, author } = body;
+    const { password, path, content, message, sha, author, action } = body;
 
     if (!env.TABLE_PASSWORD || password !== env.TABLE_PASSWORD)
       return json({ error: "wrong password" }, 403);
 
     // Only allow markdown files inside pages/ (up to 3 folder levels deep) —
-    // nothing else in the repo is writable
+    // nothing else in the repo is touchable
     if (typeof path !== "string" || !/^pages\/(?:[a-z0-9-]{1,60}\/){0,3}[a-z0-9-]{1,60}\.md$/.test(path))
       return json({ error: "invalid path" }, 400);
 
-    if (typeof content !== "string" || content.length > 200000)
+    const isDelete = action === "delete";
+
+    if (isDelete) {
+      if (typeof sha !== "string" || !sha)
+        return json({ error: "missing sha" }, 400);
+    } else if (typeof content !== "string" || content.length > 200000) {
       return json({ error: "content missing or too long" }, 400);
+    }
 
     const commitMessage =
       (typeof message === "string" && message.slice(0, 120)) ||
-      `Wiki edit${author ? ` — ${String(author).slice(0, 40)}` : ""}`;
+      `Wiki ${isDelete ? "delete" : "edit"}${author ? ` — ${String(author).slice(0, 40)}` : ""}`;
 
-    const ghBody = {
-      message: commitMessage,
-      content: b64encodeUtf8(content),
-    };
-    if (sha) ghBody.sha = sha; // update existing file; omit = create new
+    const ghBody = { message: commitMessage };
+    if (isDelete) {
+      ghBody.sha = sha; // GitHub requires the current sha to delete
+    } else {
+      ghBody.content = b64encodeUtf8(content);
+      if (sha) ghBody.sha = sha; // update existing file; omit = create new
+    }
 
     const res = await fetch(`https://api.github.com/repos/${env.REPO}/contents/${path}`, {
-      method: "PUT",
+      method: isDelete ? "DELETE" : "PUT",
       headers: {
         Authorization: `Bearer ${env.GITHUB_TOKEN}`,
         Accept: "application/vnd.github+json",
