@@ -224,6 +224,16 @@
     border: 1px solid var(--border);
     box-shadow: 0 4px 18px rgba(0,0,0,0.45);
   }
+  /* small illustration floated top-right, text wraps around it */
+  .article img.side {
+    float: right;
+    max-width: min(300px, 45%);
+    margin: 0.3rem 0 0.8rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+  }
+  .article::after { content: ""; display: block; clear: both; }
   .article hr { border: none; border-top: 1px solid var(--border-dim); margin: 1.2rem 0; }
 
   .page-meta {
