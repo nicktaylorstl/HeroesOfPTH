@@ -3,16 +3,16 @@
 *Add yourself! Edit this page and fill in your section.*
 
 ## Kar'Zhared
-Half-orc cleric of Iomedae. Healer. *(your player — add notes here)*
+Half-orc cleric of Iomedae. Healer. Fighter. Badass. *(your player — add notes here)*
 
 ## N'Jal
-Human champion of Sarenrae. The wall. *(your player — add notes here)*
+Human guardian. The rock AND the hard place. *(your player — add notes here)*
 
-## Talo
-Gnome druid, with Leah the panther. *(your player — add notes here)*
+## Scribbles
+Goblin wizard, wears a mask literally and emotionally *(your player — add notes here)*
 
 ## Sylfira
-Elf sorcerer, metal bloodline, asks too many questions. *(your player — add notes here)*
+Elf sorcerer, draconic bloodline. Stay out of her way. *(your player — add notes here)*
 
 ## Bruldrun
 Dwarf gunslinger, 130 years old, seen it all. *(your player — add notes here)*
