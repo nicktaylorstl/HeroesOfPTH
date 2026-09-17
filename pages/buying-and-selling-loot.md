@@ -7,6 +7,9 @@ Anything that's gear *(daggers, potions, armor, etc)* you can sell to vendors fo
 Anything that's valuables *(gold bracelet, emeralds, silver bowl, etc.)* you sell at the **full value** of whatever it's worth. 
 Basically if it's useable loot it's half price, if it's just meant to be translated to cash it's full price
 
+---
+---
+
 ## Here's the rules for buying items in this campaign:
 
 Items usually have a rarity and a level ("Boots of the Dead" are a Level 2, Common item)
