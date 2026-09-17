@@ -4,5 +4,7 @@
 
 | Who | What we know |
 |-----|--------------|
-| Abstalar Zantus | Town priest at Sandpoint Cathedral |
+| [[Abstalar Zantus]] | Town priest at Sandpoint Cathedral |
+| [[Nualia]] | Led attack on town 17 years ago. Dead |
+| [[Ripnugget]] | Led attack on town 17 years ago. Dead |
 | *(add more!)* | |
