@@ -503,7 +503,9 @@ function resolveWikiLink(name) {
 }
 
 function preprocessWikiLinks(md) {
-  return md.replace(/\[\[([^\]]+)\]\]/g, (_, name) => {
+  // leave [[...]] alone inside `code spans` so examples render as written
+  return md.replace(/(`?)\[\[([^\]]+)\]\](`?)/g, (match, tick1, name, tick2) => {
+    if (tick1 || tick2) return match;
     const { path, exists } = resolveWikiLink(name);
     return `<a href="#${path}" class="${exists ? "wiki-link" : "wiki-link-missing"}" title="${exists ? "" : "Page doesn't exist yet — click to create it"}">${name.trim()}</a>`;
   });
