@@ -6,7 +6,7 @@
 
 Background: Academy Dropout · Follows Grandmother Spider · Age 7 · Languages: Draconic, Thassilonian, Varisian, Sakvroth
 
-**Current Gold:** 116 gp
+### **Current Gold:** 116 gp
 
 ## Stats
 
