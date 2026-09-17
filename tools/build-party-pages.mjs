@@ -32,6 +32,16 @@ const GOLD_ADJUSTMENT = 75;
 
 const COIN_VALUES = { "Platinum Pieces": 10, "Gold Pieces": 1, "Silver Pieces": 0.1, "Copper Pieces": 0.01 };
 
+// portraits in party/images/, served by GitHub Pages alongside the site
+// (keyed by page slug because the filenames don't match the actor names)
+const PORTRAITS = {
+  bruldrun: "Bruldrun.jpg",
+  karzhared: "KharZhared.jpg",
+  njal: "NJal.png",
+  scribbleface: "Scribbles.png",
+  sylfira: "Sylfira.webp",
+};
+
 const RANKS = ["Untrained", "Trained", "Expert", "Master", "Legendary"];
 const ABILITIES = ["str", "dex", "con", "int", "wis", "cha"];
 const SKILL_ABILITY = {
@@ -216,8 +226,12 @@ function buildPage(actor) {
   const appearance = sys.details.biography?.visibility?.appearance
     ? (sys.details.biography?.appearance || "").replace(/<[^>]+>/g, "").trim() : "";
 
-  const md = `# ${actor.name}
+  const portraitFile = PORTRAITS[slugify(actor.name)];
+  const portrait = portraitFile && fs.existsSync(path.join(ROOT, "party", "images", portraitFile))
+    ? `\n<img class="portrait" src="party/images/${portraitFile}" alt="${actor.name}">\n` : "";
 
+  const md = `# ${actor.name}
+${portrait}
 *${headBits}*${subBits ? `\n\n${subBits}` : ""}
 ${appearance ? `\n> ${appearance}\n` : ""}
 **Current Gold:** ${gold} gp

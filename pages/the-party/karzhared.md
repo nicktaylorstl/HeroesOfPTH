@@ -1,5 +1,7 @@
 # Kar'zhared
 
+<img class="portrait" src="party/images/KharZhared.jpg" alt="Kar'zhared">
+
 *male Human (Dromaar) Cleric 4*
 
 Background: Raised by Belief · Follows Iomedae · Age 23 · Languages: Orcish

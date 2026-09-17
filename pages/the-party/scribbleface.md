@@ -1,5 +1,7 @@
 # Scribbleface
 
+<img class="portrait" src="party/images/Scribbles.png" alt="Scribbleface">
+
 *he/him Goblin (Unbreakable Goblin) Wizard 4*
 
 Background: Academy Dropout · Follows Grandmother Spider · Age 7 · Languages: Draconic, Thassilonian, Varisian, Sakvroth

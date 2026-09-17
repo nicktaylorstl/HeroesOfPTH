@@ -1,5 +1,7 @@
 # Bruldrun
 
+<img class="portrait" src="party/images/Bruldrun.jpg" alt="Bruldrun">
+
 *Male Dwarf (Ancient-Blooded Dwarf) Gunslinger 4*
 
 Background: Gunsmith · Follows Torag · Age 130 · Languages: Common, Dwarven

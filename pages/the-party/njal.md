@@ -1,5 +1,7 @@
 # N’jal
 
+<img class="portrait" src="party/images/NJal.png" alt="N’jal">
+
 *Human (Nephilim) Guardian 4*
 
 Background: Prisoner · Follows Sarenrae · Languages: Varisian

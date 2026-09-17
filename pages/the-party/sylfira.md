@@ -1,5 +1,7 @@
 # Sylfira
 
+<img class="portrait" src="party/images/Sylfira.webp" alt="Sylfira">
+
 *Elf (Ancient Elf (Rouge Dedication)) Sorcerer 4*
 
 Background: Fireworks Performer · Languages: Draconic, Elder-thing
