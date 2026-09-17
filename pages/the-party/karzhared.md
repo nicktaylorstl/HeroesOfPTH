@@ -10,9 +10,6 @@ Background: Raised by Belief · Follows Iomedae · Age 23 · Languages: Orcish
 
 ---
 
-
-
-
 ## Stats
 
 | STR | DEX | CON | INT | WIS | CHA |
