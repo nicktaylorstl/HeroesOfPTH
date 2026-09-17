@@ -6,7 +6,7 @@
 
 Background: Raised by Belief · Follows Iomedae · Age 23 · Languages: Orcish
 
-**Current Gold:** 91.51 gp
+### **Current Gold:** 91.51 gp
 
 ---
 
