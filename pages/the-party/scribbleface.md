@@ -11,11 +11,8 @@ Background: Academy Dropout · Follows Grandmother Spider · Age 7 · Languages:
 ## Stats
 
 | STR | DEX | CON |
-|-----|-----|-----|
 | +0 (10) | +1 (12) | +1 (12) |
-|-----|-----|-----|
 | INT | WIS | CHA |
-|-----|-----|-----|
 | +4 (18) | +1 (12) | +2 (14) |
 **Max HP** 38 · **AC** 17 · **Perception** +7 (Trained)
 
