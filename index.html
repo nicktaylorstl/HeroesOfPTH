@@ -411,8 +411,15 @@ async function loadPageList(bustCache) {
         const path = t.path.slice("pages/".length).replace(/\.md$/, "");
         return { path, title: titleFromSlug(path), sha: t.sha };
       });
+    try { localStorage.setItem("wiki-pages", JSON.stringify(pages)); } catch (e) {}
     renderPageList();
   } catch (e) {
+    // API unavailable (usually the 60/hour rate limit) — fall back to the
+    // last page list this browser saw; content itself loads from Pages fine
+    try {
+      const cached = JSON.parse(localStorage.getItem("wiki-pages") || "null");
+      if (cached && cached.length) { pages = cached; renderPageList(); return; }
+    } catch (e2) {}
     $("pageList").innerHTML = "<li class='loading'>Couldn't load page list. Refresh?</li>";
   }
 }
