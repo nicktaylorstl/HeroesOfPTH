@@ -398,11 +398,20 @@ function showStatus(msg, ok) {
 function clearStatus() { $("status").className = "status"; }
 
 /* ── Page list (whole tree in one API call) ── */
+// GitHub reports the anonymous API budget (60/hour per IP, shared by everyone
+// on the same wifi) on every response; when it runs low we skip optional calls
+let apiBudget = Infinity;
+function noteApiBudget(res) {
+  const r = parseInt(res.headers.get("x-ratelimit-remaining"), 10);
+  if (!isNaN(r)) apiBudget = r;
+}
+
 async function loadPageList(bustCache) {
   try {
     // a unique query param skips GitHub's ~60s API cache right after a change
     const url = bustCache ? `${TREE}&_=${Date.now()}` : TREE;
     const res = await fetch(url, { headers: { Accept: "application/vnd.github+json" } });
+    noteApiBudget(res);
     if (!res.ok) throw new Error("GitHub API " + res.status);
     const data = await res.json();
     pages = data.tree
@@ -613,11 +622,13 @@ async function loadPageMeta(slug) {
   // eat into the 60/hour API budget, and silently absent when it runs out
   const KEY = "wiki-meta:" + slug;
   try {
-    const cached = JSON.parse(sessionStorage.getItem(KEY) || "null");
+    const cached = JSON.parse(localStorage.getItem(KEY) || "null");
     if (cached && Date.now() - cached.at < 600000) { $("pageMeta").textContent = cached.text; return; }
   } catch (e) {}
+  if (apiBudget < 15) return; // save the shared budget for things that matter
   try {
     const res = await fetch(`${COMMITS}?path=pages/${slug}.md&per_page=1`);
+    noteApiBudget(res);
     if (!res.ok) return;
     const commits = await res.json();
     if (!commits.length) return;
@@ -625,7 +636,7 @@ async function loadPageMeta(slug) {
     const date = new Date(c.author.date).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
     const text = `Last edited ${date} · ${c.message}`;
     $("pageMeta").textContent = text;
-    try { sessionStorage.setItem(KEY, JSON.stringify({ text, at: Date.now() })); } catch (e) {}
+    try { localStorage.setItem(KEY, JSON.stringify({ text, at: Date.now() })); } catch (e) {}
   } catch (e) { /* meta is optional */ }
 }
 
