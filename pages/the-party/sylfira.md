@@ -6,7 +6,7 @@
 
 Background: Fireworks Performer · Languages: Draconic, Elder-thing
 
-**Current Gold:** 96.9 gp
+### **Current Gold:** 96.9 gp
 
 ## Stats
 
