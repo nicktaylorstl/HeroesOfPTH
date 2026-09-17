@@ -680,8 +680,33 @@ function showView() {
   $("viewMode").style.display = "block";
   $("editMode").classList.remove("visible");
 }
-function showEditor() {
+// fetch the newest version of the current page through the worker — its
+// GitHub token isn't subject to the anonymous 60/hour rate limit, so this
+// works even when the public API is exhausted or serving stale caches
+async function fetchLatest() {
+  const password = localStorage.getItem("wiki-password");
+  if (!password) return null;
+  try {
+    const res = await fetch(CONFIG.workerUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "get", password, path: `pages/${currentSlug}.md` })
+    });
+    if (!res.ok) return null;
+    const out = await res.json();
+    if (!out.ok) return null;
+    return out.exists ? { exists: true, sha: out.sha, raw: b64decodeUtf8(out.content) } : { exists: false };
+  } catch (e) { return null; }
+}
+
+async function showEditor() {
   clearStatus();
+  // start the edit from the freshest version, not a possibly-stale cache
+  const latest = await fetchLatest();
+  if (latest) {
+    if (latest.exists) { currentSha = latest.sha; currentRaw = latest.raw; }
+    else { currentSha = null; currentRaw = `# ${titleFromSlug(currentSlug)}\n\n`; }
+  }
   $("editorText").value = currentRaw || `# ${titleFromSlug(currentSlug)}\n\n`;
   $("authorInput").value = localStorage.getItem("wiki-author") || "";
   $("passwordInput").value = localStorage.getItem("wiki-password") || "";
@@ -715,7 +740,16 @@ async function savePage() {
     });
     const out = await res.json().catch(() => ({}));
     if (res.status === 403) { showStatus("Wrong table password.", false); }
-    else if (res.status === 409) { showStatus("Someone else edited this page while you were typing! Copy your text somewhere safe, refresh, and paste your changes back in.", false); }
+    else if (res.status === 409) {
+      // stale sha — grab the latest one so the next save attempt can succeed
+      const latest = await fetchLatest();
+      if (latest && latest.exists) {
+        currentSha = latest.sha;
+        showStatus("This page changed since you opened it (another save, or a GM update). Your text is untouched — click Save again to overwrite the newer version, or Cancel to review it first.", false);
+      } else {
+        showStatus("Someone else edited this page while you were typing! Copy your text somewhere safe, refresh, and paste your changes back in.", false);
+      }
+    }
     else if (!res.ok) { showStatus("Save failed: " + (out.error || res.status), false); }
     else if (out.sha) {
       // show the saved content immediately — refetching would hit GitHub's
@@ -773,7 +807,11 @@ async function deletePage() {
     });
     const out = await res.json().catch(() => ({}));
     if (res.status === 403) { showStatus("Wrong table password.", false); }
-    else if (res.status === 409) { showStatus("Someone edited this page just now — refresh and try again.", false); }
+    else if (res.status === 409) {
+      const latest = await fetchLatest();
+      if (latest && latest.exists) currentSha = latest.sha;
+      showStatus("Someone edited this page just now — click Delete again if you still want it gone.", false);
+    }
     else if (!res.ok) { showStatus("Delete failed: " + (out.error || res.status), false); }
     else {
       rememberChange(currentSlug, { deleted: true });

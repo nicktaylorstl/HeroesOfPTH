@@ -49,6 +49,23 @@ export default {
     if (typeof path !== "string" || !/^pages\/(?:[a-z0-9-]{1,60}\/){0,3}[a-z0-9-]{1,60}\.md$/.test(path))
       return json({ error: "invalid path" }, 400);
 
+    const ghUrl = `https://api.github.com/repos/${env.REPO}/contents/${path}`;
+    const ghHeaders = {
+      Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+      Accept: "application/vnd.github+json",
+      "User-Agent": "sandpoint-wiki-worker",
+    };
+
+    // "get" hands the site the freshest content + sha, bypassing the anonymous
+    // API's rate limit and caches (this token has its own 5000/hour budget)
+    if (action === "get") {
+      const res = await fetch(ghUrl, { headers: ghHeaders, cache: "no-store" });
+      if (res.status === 404) return json({ ok: true, exists: false }, 200);
+      if (!res.ok) return json({ error: `GitHub ${res.status}` }, 502);
+      const d = await res.json();
+      return json({ ok: true, exists: true, sha: d.sha, content: d.content }, 200);
+    }
+
     const isDelete = action === "delete";
 
     if (isDelete) {
@@ -70,14 +87,9 @@ export default {
       if (sha) ghBody.sha = sha; // update existing file; omit = create new
     }
 
-    const res = await fetch(`https://api.github.com/repos/${env.REPO}/contents/${path}`, {
+    const res = await fetch(ghUrl, {
       method: isDelete ? "DELETE" : "PUT",
-      headers: {
-        Authorization: `Bearer ${env.GITHUB_TOKEN}`,
-        Accept: "application/vnd.github+json",
-        "User-Agent": "sandpoint-wiki-worker",
-        "Content-Type": "application/json",
-      },
+      headers: { ...ghHeaders, "Content-Type": "application/json" },
       body: JSON.stringify(ghBody),
     });
 
