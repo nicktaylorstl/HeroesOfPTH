@@ -1,6 +1,6 @@
 # Scribbleface
 
-<img class="portrait" src="party/images/Scribbles.png" alt="Scribbleface">
+<img class="side" src="party/images/Scribbles.png" alt="Scribbleface">
 
 *he/him Goblin (Unbreakable Goblin) Wizard 4*
 

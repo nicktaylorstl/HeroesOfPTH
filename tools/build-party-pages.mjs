@@ -228,7 +228,7 @@ function buildPage(actor) {
 
   const portraitFile = PORTRAITS[slugify(actor.name)];
   const portrait = portraitFile && fs.existsSync(path.join(ROOT, "party", "images", portraitFile))
-    ? `\n<img class="portrait" src="party/images/${portraitFile}" alt="${actor.name}">\n` : "";
+    ? `\n<img class="side" src="party/images/${portraitFile}" alt="${actor.name}">\n` : "";
 
   const md = `# ${actor.name}
 ${portrait}

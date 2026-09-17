@@ -1,6 +1,6 @@
 # N’jal
 
-<img class="portrait" src="party/images/NJal.png" alt="N’jal">
+<img class="side" src="party/images/NJal.png" alt="N’jal">
 
 *Human (Nephilim) Guardian 4*
 

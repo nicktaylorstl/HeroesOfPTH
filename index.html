@@ -202,7 +202,9 @@
   }
   .article pre { background: var(--card-bg); border: 1px solid var(--border-dim); border-radius: 4px; padding: 0.8rem 1rem; overflow-x: auto; margin-bottom: 1rem; }
   .article pre code { border: none; background: none; padding: 0; }
-  .article table { width: 100%; border-collapse: collapse; margin: 0.6rem 0 1rem; font-size: 0.95rem; }
+  /* auto width lets tables sit beside floated .side images instead of
+     jumping below them; min-width keeps them from looking cramped */
+  .article table { width: auto; min-width: min(55%, 100%); max-width: 100%; border-collapse: collapse; margin: 0.6rem 0 1rem; font-size: 0.95rem; }
   .article th {
     font-family: 'Cinzel', serif;
     font-size: 0.7rem;

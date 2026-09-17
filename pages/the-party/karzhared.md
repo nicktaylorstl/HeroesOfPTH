@@ -1,6 +1,6 @@
 # Kar'zhared
 
-<img class="portrait" src="party/images/KharZhared.jpg" alt="Kar'zhared">
+<img class="side" src="party/images/KharZhared.jpg" alt="Kar'zhared">
 
 *male Human (Dromaar) Cleric 4*
 
