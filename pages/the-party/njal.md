@@ -6,7 +6,7 @@
 
 Background: Prisoner · Follows Sarenrae · Languages: Varisian
 
-**Current Gold:** 86.87 gp
+### **Current Gold:** 86.87 gp
 
 ## Stats
 
