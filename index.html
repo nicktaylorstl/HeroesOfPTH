@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sandpoint Chronicles — Party Wiki</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+  :root {
+    --bg:          #0e0d14;
+    --panel:       #171520;
+    --border:      #3d2e5a;
+    --border-dim:  #261e3a;
+    --accent:      #8a5fc8;
+    --accent2:     #5a2d8a;
+    --gold:        #d4a843;
+    --text:        #e8dcc8;
+    --muted:       #8a7a9a;
+    --card-bg:     #1c1828;
+    --title-color: #c8a0f0;
+    --blood:       #b05050;
+    --green:       #6aa86a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Crimson Text', Georgia, serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  header {
+    background: linear-gradient(180deg, #080710 0%, #0e0b1a 60%, var(--bg) 100%);
+    border-bottom: 2px solid var(--accent2);
+    padding: 1.6rem 1.5rem 1.2rem;
+    text-align: center;
+  }
+  .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  h1.site-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-weight: 700;
+    color: var(--title-color);
+    text-shadow: 0 0 30px rgba(138,95,200,0.5), 2px 2px 6px #000;
+    letter-spacing: 0.04em;
+  }
+  .subtitle { color: var(--muted); font-style: italic; font-size: 0.95rem; margin-top: 0.25rem; }
+
+  .layout {
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    align-items: flex-start;
+  }
+
+  /* ── Sidebar ─────────────────────────────── */
+  nav.sidebar {
+    flex: 0 0 230px;
+    background: var(--panel);
+    border: 1px solid var(--border-dim);
+    border-radius: 6px;
+    padding: 1rem;
+    position: sticky;
+    top: 1rem;
+  }
+  .sidebar h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+  .page-list { list-style: none; }
+  .page-list li { margin-bottom: 0.15rem; }
+  .page-list a {
+    display: block;
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+  }
+  .page-list a:hover { background: var(--accent2); }
+  .page-list a.active { background: var(--card-bg); color: var(--title-color); border-left: 2px solid var(--accent); }
+
+  .btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    padding: 0.45rem 0.9rem;
+    background: var(--accent2);
+    color: var(--text);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn:hover { background: var(--accent); }
+  .btn.ghost { background: transparent; color: var(--muted); border-color: var(--border); }
+  .btn.ghost:hover { background: var(--card-bg); color: var(--text); }
+  .btn.danger:hover { background: var(--blood); border-color: var(--blood); }
+  .btn.block { display: block; width: 100%; margin-top: 0.8rem; text-align: center; }
+
+  /* ── Article ─────────────────────────────── */
+  main.content {
+    flex: 1;
+    min-width: 0;
+    background: var(--panel);
+    border: 1px solid var(--border-dim);
+    border-radius: 6px;
+    padding: 1.6rem 2rem 2rem;
+  }
+  .page-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+  .article h1, .article h2, .article h3, .article h4 {
+    font-family: 'Cinzel', serif;
+    color: var(--title-color);
+    letter-spacing: 0.03em;
+    margin: 1.2rem 0 0.5rem;
+    line-height: 1.3;
+  }
+  .article h1 { font-size: 1.7rem; border-bottom: 1px solid var(--border-dim); padding-bottom: 0.4rem; margin-top: 0; }
+  .article h2 { font-size: 1.25rem; color: var(--gold); }
+  .article h3 { font-size: 1.05rem; }
+  .article p { margin-bottom: 0.8rem; }
+  .article ul, .article ol { margin: 0 0 0.9rem 1.4rem; }
+  .article li { margin-bottom: 0.3rem; }
+  .article a { color: var(--accent); }
+  .article a.wiki-link-missing { color: var(--blood); border-bottom: 1px dashed var(--blood); text-decoration: none; }
+  .article blockquote {
+    border-left: 3px solid var(--accent2);
+    background: var(--card-bg);
+    padding: 0.6rem 1rem;
+    margin: 0.6rem 0 1rem;
+    font-style: italic;
+    color: #d8c8ee;
+    border-radius: 0 4px 4px 0;
+  }
+  .article code {
+    background: var(--card-bg);
+    border: 1px solid var(--border-dim);
+    border-radius: 3px;
+    padding: 0.05rem 0.35rem;
+    font-size: 0.85em;
+  }
+  .article pre { background: var(--card-bg); border: 1px solid var(--border-dim); border-radius: 4px; padding: 0.8rem 1rem; overflow-x: auto; margin-bottom: 1rem; }
+  .article pre code { border: none; background: none; padding: 0; }
+  .article table { width: 100%; border-collapse: collapse; margin: 0.6rem 0 1rem; font-size: 0.95rem; }
+  .article th {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 0.4rem 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .article td { padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--border-dim); vertical-align: top; }
+  .article img { max-width: 100%; border-radius: 4px; }
+  .article hr { border: none; border-top: 1px solid var(--border-dim); margin: 1.2rem 0; }
+
+  .page-meta {
+    margin-top: 1.6rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--border-dim);
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── Editor ──────────────────────────────── */
+  .editor { display: none; }
+  .editor.visible { display: block; }
+  .editor textarea {
+    width: 100%;
+    min-height: 420px;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.9rem 1rem;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+  }
+  .editor textarea:focus { outline: none; border-color: var(--accent); }
+  .editor-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+    margin: 0.8rem 0;
+  }
+  .editor-bar label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .editor-bar input {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.35rem 0.6rem;
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 15px;
+    width: 150px;
+  }
+  .editor-bar input:focus { outline: none; border-color: var(--accent); }
+  .editor-hint { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-bottom: 0.6rem; }
+
+  .status {
+    display: none;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 0.8rem;
+    font-size: 0.92rem;
+  }
+  .status.visible { display: block; }
+  .status.ok { background: #10201a; border: 1px solid #2d5a40; color: var(--green); }
+  .status.err { background: #241018; border: 1px solid #5a2d3a; color: #e0a0a0; }
+
+  .loading { color: var(--muted); font-style: italic; padding: 2rem 0; text-align: center; }
+
+  @media (max-width: 760px) {
+    .layout { flex-direction: column; padding: 1rem 0.8rem; }
+    nav.sidebar { position: static; flex: none; width: 100%; }
+    main.content { padding: 1.1rem 1rem 1.5rem; }
+    body { font-size: 15.5px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Seven Dooms for Sandpoint</div>
+  <h1 class="site-title">Sandpoint Chronicles</h1>
+  <div class="subtitle">The party's shared notes — anyone at the table can add and edit pages</div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <h2>Pages</h2>
+    <ul class="page-list" id="pageList"><li class="loading">Loading…</li></ul>
+    <button class="btn block" id="newPageBtn">+ New Page</button>
+  </nav>
+
+  <main class="content">
+    <div class="status" id="status"></div>
+
+    <!-- View mode -->
+    <div id="viewMode">
+      <div class="page-actions">
+        <button class="btn" id="editBtn">✎ Edit This Page</button>
+      </div>
+      <div class="article" id="article"><div class="loading">Loading…</div></div>
+      <div class="page-meta" id="pageMeta"></div>
+    </div>
+
+    <!-- Edit mode -->
+    <div class="editor" id="editMode">
+      <div class="editor-hint">
+        Write in Markdown. <strong># Heading</strong>, <strong>**bold**</strong>, <strong>- list item</strong>,
+        and <strong>[[Page Name]]</strong> to link to another wiki page (red links create new pages).
+      </div>
+      <textarea id="editorText" spellcheck="true"></textarea>
+      <div class="editor-bar">
+        <label>Your name</label>
+        <input type="text" id="authorInput" placeholder="e.g. Talo">
+        <label>Table password</label>
+        <input type="password" id="passwordInput" placeholder="ask your GM">
+        <button class="btn" id="saveBtn">Save Page</button>
+        <button class="btn ghost" id="cancelBtn">Cancel</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+/* ═══════════════ CONFIG — the GM edits these three lines ═══════════════ */
+const CONFIG = {
+  owner: "nicktaylorstl",
+  repo: "HeroesOfPTH",
+  workerUrl: "https://YOUR-WORKER.workers.dev"  // your Cloudflare Worker URL
+};
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+const API = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents`;
+const COMMITS = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/commits`;
+
+let pages = [];          // [{slug, title}]
+let currentSlug = null;
+let currentSha = null;   // sha of the loaded file, needed for conflict-safe saves
+let currentRaw = "";
+
+const $ = id => document.getElementById(id);
+
+function slugify(name) {
+  return name.toLowerCase().trim()
+    .replace(/['’]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60);
+}
+function titleFromSlug(slug) {
+  return slug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+}
+function b64decodeUtf8(b64) {
+  const bin = atob(b64.replace(/\s/g, ""));
+  const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+function showStatus(msg, ok) {
+  const el = $("status");
+  el.textContent = msg;
+  el.className = "status visible " + (ok ? "ok" : "err");
+  if (ok) setTimeout(() => el.classList.remove("visible"), 4000);
+}
+function clearStatus() { $("status").className = "status"; }
+
+/* ── Page list ── */
+async function loadPageList() {
+  try {
+    const res = await fetch(`${API}/pages`, { headers: { Accept: "application/vnd.github+json" } });
+    if (!res.ok) throw new Error("GitHub API " + res.status);
+    const files = await res.json();
+    pages = files
+      .filter(f => f.name.endsWith(".md"))
+      .map(f => ({ slug: f.name.replace(/\.md$/, ""), title: titleFromSlug(f.name.replace(/\.md$/, "")) }))
+      .sort((a, b) => a.slug === "home" ? -1 : b.slug === "home" ? 1 : a.title.localeCompare(b.title));
+    renderPageList();
+  } catch (e) {
+    $("pageList").innerHTML = "<li class='loading'>Couldn't load page list. Refresh?</li>";
+  }
+}
+function renderPageList() {
+  $("pageList").innerHTML = pages.map(p =>
+    `<li><a href="#${p.slug}" class="${p.slug === currentSlug ? "active" : ""}">${p.title}</a></li>`
+  ).join("");
+}
+
+/* ── Wiki links: [[Page Name]] → internal links ── */
+function preprocessWikiLinks(md) {
+  return md.replace(/\[\[([^\]]+)\]\]/g, (_, name) => {
+    const slug = slugify(name);
+    const exists = pages.some(p => p.slug === slug);
+    return `<a href="#${slug}" class="${exists ? "wiki-link" : "wiki-link-missing"}" title="${exists ? "" : "Page doesn't exist yet — click to create it"}">${name.trim()}</a>`;
+  });
+}
+
+/* ── Load & render one page ── */
+async function loadPage(slug) {
+  currentSlug = slug;
+  currentSha = null;
+  currentRaw = "";
+  showView();
+  renderPageList();
+  $("article").innerHTML = "<div class='loading'>Loading…</div>";
+  $("pageMeta").textContent = "";
+  try {
+    const res = await fetch(`${API}/pages/${slug}.md`, { headers: { Accept: "application/vnd.github+json" } });
+    if (res.status === 404) {
+      $("article").innerHTML = `<h1>${titleFromSlug(slug)}</h1><p><em>This page doesn't exist yet.</em> Click <strong>Edit This Page</strong> to write it!</p>`;
+      currentRaw = `# ${titleFromSlug(slug)}\n\n`;
+      return;
+    }
+    if (!res.ok) throw new Error("GitHub API " + res.status);
+    const data = await res.json();
+    currentSha = data.sha;
+    currentRaw = b64decodeUtf8(data.content);
+    const html = DOMPurify.sanitize(marked.parse(preprocessWikiLinks(currentRaw)));
+    $("article").innerHTML = html;
+    loadPageMeta(slug);
+  } catch (e) {
+    $("article").innerHTML = "<p class='loading'>Couldn't load this page. Check your connection and refresh.</p>";
+  }
+}
+async function loadPageMeta(slug) {
+  try {
+    const res = await fetch(`${COMMITS}?path=pages/${slug}.md&per_page=1`);
+    if (!res.ok) return;
+    const commits = await res.json();
+    if (!commits.length) return;
+    const c = commits[0].commit;
+    const date = new Date(c.author.date).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    $("pageMeta").textContent = `Last edited ${date} · ${c.message}`;
+  } catch (e) { /* meta is optional */ }
+}
+
+/* ── Edit mode ── */
+function showView() {
+  $("viewMode").style.display = "block";
+  $("editMode").classList.remove("visible");
+}
+function showEditor() {
+  clearStatus();
+  $("editorText").value = currentRaw || `# ${titleFromSlug(currentSlug)}\n\n`;
+  $("authorInput").value = localStorage.getItem("wiki-author") || "";
+  $("passwordInput").value = localStorage.getItem("wiki-password") || "";
+  $("viewMode").style.display = "none";
+  $("editMode").classList.add("visible");
+  $("editorText").focus();
+}
+
+async function savePage() {
+  const author = $("authorInput").value.trim();
+  const password = $("passwordInput").value;
+  const content = $("editorText").value;
+  if (!author) { showStatus("Add your name so the party knows who wrote this.", false); return; }
+  if (!password) { showStatus("You need the table password — ask your GM.", false); return; }
+  try { localStorage.setItem("wiki-author", author); localStorage.setItem("wiki-password", password); } catch (e) {}
+
+  $("saveBtn").disabled = true;
+  $("saveBtn").textContent = "Saving…";
+  try {
+    const res = await fetch(CONFIG.workerUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        password,
+        author,
+        path: `pages/${currentSlug}.md`,
+        content,
+        sha: currentSha,
+        message: `${currentSha ? "Edit" : "Create"} ${titleFromSlug(currentSlug)} — ${author}`
+      })
+    });
+    const out = await res.json().catch(() => ({}));
+    if (res.status === 403) { showStatus("Wrong table password.", false); }
+    else if (res.status === 409) { showStatus("Someone else edited this page while you were typing! Copy your text somewhere safe, refresh, and paste your changes back in.", false); }
+    else if (!res.ok) { showStatus("Save failed: " + (out.error || res.status), false); }
+    else {
+      showStatus("Saved! ✦", true);
+      await loadPage(currentSlug);
+      loadPageList();
+    }
+  } catch (e) {
+    showStatus("Couldn't reach the save server. Check your connection.", false);
+  } finally {
+    $("saveBtn").disabled = false;
+    $("saveBtn").textContent = "Save Page";
+  }
+}
+
+/* ── New page ── */
+function newPage() {
+  const name = prompt("Name of the new page (e.g. 'Ameiko Kaijitsu' or 'Session 5'):");
+  if (!name) return;
+  const slug = slugify(name);
+  if (!slug) return;
+  location.hash = "#" + slug;
+  // loadPage fires via hashchange; open the editor once it settles
+  setTimeout(showEditor, 400);
+}
+
+/* ── Routing ── */
+function route() {
+  const slug = (location.hash || "#home").slice(1) || "home";
+  loadPage(slug);
+}
+
+$("editBtn").addEventListener("click", showEditor);
+$("cancelBtn").addEventListener("click", () => { clearStatus(); showView(); });
+$("saveBtn").addEventListener("click", savePage);
+$("newPageBtn").addEventListener("click", newPage);
+window.addEventListener("hashchange", route);
+
+(async function init() {
+  await loadPageList();
+  route();
+})();
+</script>
+
+</body>
+</html>
