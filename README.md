@@ -75,6 +75,7 @@ Send them the site URL and the table password. That's all they need — their br
 - **Delete a page:** delete the file on GitHub (the site's editor can create and change pages, but deliberately can't delete). Deleting a folder's last page removes the folder too.
 - **Rename/move a page:** on GitHub (or locally with `git mv`) — the site treats the file path as the page's location.
 - **Change the password:** update the `TABLE_PASSWORD` secret on the worker.
+- **Update character sheets:** re-export the actors from Foundry VTT into `party/export/`, run `node tools/build-party-pages.mjs`, then commit and push. Anything players wrote below the "PLAYER NOTES" marker on a sheet page is preserved.
 - **Rate limits:** reading uses GitHub's anonymous API (60 requests/hour per player IP). Fine for a gaming table; if someone ever hits it, it resets within the hour.
 
 ## Security notes (honest version)
