@@ -77,3 +77,8 @@ Hide Armor · Rope · Father's Warmask · Healer's Toolkit · Cultist Cowl · He
 ## Player Notes
 
 *(yours to fill in — goals, grudges, loot claims, embarrassing moments…)*
+
+
+1. Catacombs of Sandpoint
+-  after clearing the dungeon of demons, Combusted and learning it's thassalonian sacred ground Kar'zhared started learning the language to understand
+- finished his studies of Thasalonian upon turning lvl. 5
