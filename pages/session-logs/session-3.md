@@ -18,4 +18,5 @@
 3. We left the dungeon into the cathedral, getting paid by Father Zanthus
 4. Kar'Zhared and Scribbles go see Brodert Quink, learning about the Thassalonian map, which depicts the Sandpoint area before the Earthfall (event changing the face of the earth, also before the rune Lords fell)
 5. Kar'Zhared started learning Thassalonian from Brodert
-6. "I don't wish these dooms on Sandpoin, but there's one who does, and he harkens on red wings" are the last words of Nualia before she accepts forgiveness as it's given.
+6. Nualia gets summoned, but during the summoning, an angry mob gathers before the cathedral led by Charn Scarnetti, who spits on Scribbles and in return gets punched by N'jal in the snout.
+7.After much discourse with her ghost, the party talked Nualia down. "I don't wish these dooms on Sandpoint, but there's one who does, and he harkens on red wings" are the last words of Nualia before she accepts forgiveness as it's given.
