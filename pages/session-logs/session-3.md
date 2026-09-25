@@ -18,4 +18,4 @@
 3. We left the dungeon into the cathedral, getting paid by Father Zanthus
 4. Kar'Zhared and Scribbles go see Brodert Quink, learning about the Thassalonian map, which depicts the Sandpoint area before the Earthfall (event changing the face of the earth, also before the rune Lords fell)
 5. Kar'Zhared started learning Thassalonian from Brodert
-6. 
+6. "I don't wish these dooms on Sandpoin, but there's one who does, and he harkens on red wings" are the last words of Nualia before she accepts forgiveness as it's given.
