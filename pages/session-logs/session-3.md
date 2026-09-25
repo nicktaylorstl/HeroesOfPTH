@@ -13,3 +13,9 @@
 - *(who did we meet? add them to [[People of Sandpoint]])*
 - *(any clues? add them to [[Mysteries and Theories]])*
 
+1. Looted the room with the statue of Alaznys, getting a +1 striking spear
+2. Entered a different room in the south-east of the dungeon, with an altar of the rune-lords (having their insgnia - the seven-pointed star - etched into to table top) having to fight 3 Combusted (flaming creatures), killing them, getting hurt
+3. We left the dungeon into the cathedral, getting paid by Father Zanthus
+4. Kar'Zhared and Scribbles go see Brodert Quink, learning about the Thassalonian map, which depicts the Sandpoint area before the Earthfall (event changing the face of the earth, also before the rune Lords fell)
+5. Kar'Zhared started learning Thassalonian from Brodert
+6. 
