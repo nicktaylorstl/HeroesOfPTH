@@ -6,7 +6,7 @@
 
 
 - What was that goblin trying to do with Nualia? 
-- **"What even is this place?" - Franta**
+- **"What even is this place?" - Franta** ==> the answer is 'shrine to the rune-lords'
 - *(what don't we understand yet?)*
 
 ## Theories
