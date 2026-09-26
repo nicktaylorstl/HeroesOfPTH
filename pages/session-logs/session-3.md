@@ -25,4 +25,5 @@
 4. Nualia's ghost
 
 - *(any clues? add them to [[Mysteries and Theories]])*
-
+  - Nualia's prophecy and the map of Sandpoint from before the Earthfall
+  - 
