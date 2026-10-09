@@ -9,4 +9,4 @@
 - Charn's warning of causing trouble for us
 
 1. Father Zanthus said that "the pit" is a place outside of Sandpoint where adventurers go
-2
+2. Entered the pit and opened a door to a room with a crude statue of the sandpoint devil, triggered a statue trap, a spider statue trap
