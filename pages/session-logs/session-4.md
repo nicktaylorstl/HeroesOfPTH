@@ -7,3 +7,6 @@
   - who is the 'one who harkens on red wings?)
   - what is the hole that we are supposed to dig?
 - Charn's warning of causing trouble for us
+
+1. Father Zanthus said that "the pit" is a place outside of Sandpoint where adventurers go
+2
