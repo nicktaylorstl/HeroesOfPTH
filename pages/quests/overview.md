@@ -6,7 +6,7 @@ What is the main quest as you understand it right now?
 
 ----------- SAVE SANDPOINT FROM THE SEVEN DOOMS ---------------------
 1. understand Nualia's prophecy
-2. 
+2. Delve the pit
 
 (Somebody add it here)
 
