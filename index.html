@@ -661,7 +661,9 @@ function fitEmbed(frame) {
   try {
     const doc = frame.contentDocument;
     if (!doc || !doc.body) return;
-    const fit = () => { frame.style.height = doc.documentElement.scrollHeight + "px"; };
+    // measure the body, not the document: the document is never shorter than the
+    // frame itself, so it can grow the frame but never shrink it back
+    const fit = () => { frame.style.height = Math.ceil(doc.body.getBoundingClientRect().height) + "px"; };
     fit();
     new ResizeObserver(fit).observe(doc.body);
   } catch (e) { /* not same-site: keep the default height */ }
