@@ -236,6 +236,7 @@
     box-shadow: 0 4px 18px rgba(0,0,0,0.45);
   }
   .article::after { content: ""; display: block; clear: both; }
+  .article iframe.embed { display: block; width: 100%; height: 1400px; border: 0; margin: 0.6rem 0 1rem; border-radius: 4px; }
   .article hr { border: none; border-top: 1px solid var(--border-dim); margin: 1.2rem 0; }
 
   .page-meta {
@@ -380,8 +381,6 @@
   📖 <a href="https://downloads.paizo.com/SevenDoomsforSandpoint_PlayersGuide.pdf" target="_blank" rel="noopener">Seven Dooms for Sandpoint — Player's Guide (PDF)</a>
   <span class="footer-sep">·</span>
   🎲 <a href="https://pth-finder.eu.forge-vtt.com" target="_blank" rel="noopener">Foundry Virtual Table Top</a>
-  <span class="footer-sep">·</span>
-  🎯 <a href="dice-ledger.html">Dice Ledger</a>
 </footer>
 
 <script>
@@ -651,8 +650,29 @@ async function loadPage(slug) {
     $("article").innerHTML = "<p class='loading'>Couldn't load this page. Check your connection and refresh.</p>";
   }
 }
+/* Embeds: a page may show one of the site's own .html files (e.g. the Dice
+   Ledger) with <iframe class="embed" src="dice-ledger.html">. Only plain
+   same-site file names are allowed; any other iframe is removed. */
+const EMBED_SRC = /^[a-z0-9][a-z0-9-]*\.html$/i;
+DOMPurify.addHook("uponSanitizeElement", (node, data) => {
+  if (data.tagName === "iframe" && !EMBED_SRC.test(node.getAttribute("src") || "")) node.remove();
+});
+function fitEmbed(frame) {
+  try {
+    const doc = frame.contentDocument;
+    if (!doc || !doc.body) return;
+    const fit = () => { frame.style.height = doc.documentElement.scrollHeight + "px"; };
+    fit();
+    new ResizeObserver(fit).observe(doc.body);
+  } catch (e) { /* not same-site: keep the default height */ }
+}
 function renderArticle() {
-  $("article").innerHTML = DOMPurify.sanitize(marked.parse(preprocessWikiLinks(currentRaw)));
+  $("article").innerHTML = DOMPurify.sanitize(marked.parse(preprocessWikiLinks(currentRaw)), {
+    ADD_TAGS: ["iframe"], ADD_ATTR: ["loading"]
+  });
+  $("article").querySelectorAll("iframe.embed").forEach(f => {
+    f.addEventListener("load", () => fitEmbed(f));
+  });
 }
 async function loadPageMeta(slug) {
   // best-effort nicety — cached for 10 min per page so browsing doesn't
